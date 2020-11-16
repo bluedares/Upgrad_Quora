@@ -16,7 +16,6 @@ com/upgrad/quora/api/model/AnswerDeleteResponse.class
 com/upgrad/quora/api/model/AnswerEditRequest.class
 com/upgrad/quora/api/model/UserDeleteResponse.class
 com/upgrad/quora/api/model/SignoutResponse.class
-com/upgrad/quora/api/controller/SignupController.class
 com/upgrad/quora/api/model/QuestionDeleteResponse.class
 com/upgrad/quora/api/config/SwaggerConfiguration.class
 io/swagger/Swagger2SpringBoot.class
