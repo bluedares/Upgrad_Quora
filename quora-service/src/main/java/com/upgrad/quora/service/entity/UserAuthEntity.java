@@ -35,7 +35,7 @@ public class UserAuthEntity {
 
     @Column(name = "ACCESS_TOKEN")
     @NotNull
-    @Size(max = 500)
+    @Size(max = 200)
     private String accessToken;
 
     @Column(name = "LOGIN_AT")
