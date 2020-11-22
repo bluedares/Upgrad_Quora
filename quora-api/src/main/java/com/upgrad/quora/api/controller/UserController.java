@@ -33,7 +33,7 @@ public class UserController {
 
     /**
      *
-     * @param signupUserRequest : To create an user with his specific details.
+     * @param signupUserRequest : To create a non admin user with his specific details.
      * @return SignupUserResponse: Returns ID and login status of the user.
      * @throws SignUpRestrictedException
      */
@@ -48,7 +48,7 @@ public class UserController {
 
     /**
      *
-     * @param signupUserRequest : To create an user with his specific details.
+     * @param signupUserRequest : To create an admin user with his specific details.
      * @return SignupUserResponse: Returns ID and login status of the user.
      * @throws SignUpRestrictedException
      */
