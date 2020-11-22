@@ -9,6 +9,7 @@
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./com/upgrad/quora/api/model/AnswerEditRequest.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./com/upgrad/quora/api/model/SignupUserRequest.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./com/upgrad/quora/api/model/QuestionDetailsResponse.java
+/Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/exception/QuoraExceptionHandler.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./io/swagger/api/NotFoundException.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./com/upgrad/quora/api/model/QuestionResponse.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./com/upgrad/quora/api/model/UserDetailsResponse.java
@@ -21,6 +22,7 @@
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./io/swagger/api/ApiException.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./com/upgrad/quora/api/model/QuestionEditResponse.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./io/swagger/Swagger2SpringBoot.java
+/Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/transformers/SignupUserResponseTransformer.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./com/upgrad/quora/api/model/AnswerEditResponse.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/QuoraApiApplication.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./com/upgrad/quora/api/model/QuestionDeleteResponse.java

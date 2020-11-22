@@ -57,7 +57,7 @@ public class UserEntity implements Serializable {
     @Size(max = 100)
     private String salt;
 
-    @Column(name = "loginStatus")
+    @Column(name = "loginstatus")
     @NotNull
     private String loginStatus;
 
