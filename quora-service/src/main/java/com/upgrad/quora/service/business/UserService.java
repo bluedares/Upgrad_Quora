@@ -1,5 +1,6 @@
 package com.upgrad.quora.service.business;
 
+import com.upgrad.quora.service.common.QuoraErrors;
 import com.upgrad.quora.service.common.UserRole;
 import com.upgrad.quora.service.dao.UserDao;
 import com.upgrad.quora.service.entity.UserEntity;
@@ -26,11 +27,11 @@ public class UserService {
     @Transactional(propagation = Propagation.REQUIRED)
     public UserEntity createUser(UserEntity userEntity) throws SignUpRestrictedException{
         if(isUserEmailExist(userEntity)){
-            throw new SignUpRestrictedException("SUP-001","This user has already registered. Please register through another email");
+            throw new SignUpRestrictedException(QuoraErrors.USER_EMAIL_ALREADY_EXISTS);
         }
 
         if(isUserNameExist(userEntity)){
-            throw new SignUpRestrictedException("SUP-002","This user name has already been chosen. Please choose another user name");
+            throw new SignUpRestrictedException(QuoraErrors.USER_NAME_ALREADY_EXISTS);
         }
         if(userEntity.getRole() == null){
             userEntity.setRole(UserRole.ADMIN);

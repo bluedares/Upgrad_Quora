@@ -1,5 +1,8 @@
 package com.upgrad.quora.service.exception;
 
+import com.upgrad.quora.service.common.QuoraErrors;
+import org.springframework.http.HttpStatus;
+
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
@@ -9,12 +12,14 @@ import java.io.PrintWriter;
 public class SignUpRestrictedException extends Exception {
     private final String code;
     private final String errorMessage;
+    private final HttpStatus status;
 
-    public SignUpRestrictedException(final String code, final String errorMessage) {
-        this.code = code;
-        this.errorMessage = errorMessage;
+
+    public SignUpRestrictedException(QuoraErrors error){
+        this.code = error.getErrorCode();
+        this.errorMessage = error.getMesssage();
+        this.status = error.getStatus();
     }
-
     @Override
     public void printStackTrace() {
         super.printStackTrace();
