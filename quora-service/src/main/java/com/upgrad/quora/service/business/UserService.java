@@ -9,6 +9,7 @@ import com.upgrad.quora.service.entity.UserEntity;
 import com.upgrad.quora.service.exception.AuthenticationFailedException;
 import com.upgrad.quora.service.exception.SignOutRestrictedException;
 import com.upgrad.quora.service.exception.SignUpRestrictedException;
+import com.upgrad.quora.service.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.stereotype.Service;
@@ -81,7 +82,7 @@ public class UserService {
     public UserAuthEntity authenticate(String userName, String password) throws AuthenticationFailedException{
         UserEntity userEntity = userDao.getUserByUserName(userName);
         if(userEntity == null){
-            throw new AuthenticationFailedException(QuoraErrors.USER_NOT_FOUND);
+            throw new AuthenticationFailedException(QuoraErrors.USER_NOT_REGISTERED);
         }
         String encryptedPassword = passwordCryptographyProvider.encrypt(password,userEntity.getSalt());
         if(!encryptedPassword.equals(userEntity.getPassword())){
@@ -115,5 +116,24 @@ public class UserService {
         userEntity.setLoginStatus(LoginStatus.LOGGED_OUT.name());
         userAuthEntity.setUser(userEntity);
         return userDao.logoutUser(userAuthEntity);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public UserEntity getUser(String uuid,String accessToken) throws AuthenticationFailedException , UserNotFoundException{
+        UserAuthEntity userAuthEntity = userDao.getUserAuthByAccessToken(accessToken);
+        if(userAuthEntity == null){
+            throw new AuthenticationFailedException(QuoraErrors.INVALID_ACCESS_TOKEN);
+        }
+        if(ZonedDateTime.now().isAfter(userAuthEntity.getExpiresAt())){
+            throw new AuthenticationFailedException(QuoraErrors.EXPIRED_ACCESS_TOKEN);
+        }
+        if(!LoginStatus.LOGGED_IN.equals(LoginStatus.valueOf(userAuthEntity.getUser().getLoginStatus()))){
+            throw new AuthenticationFailedException(QuoraErrors.USER_NOT_SIGNED_IN);
+        }
+        UserEntity userEntity = userDao.getUserByUuid(uuid);
+        if(userEntity == null){
+            throw new UserNotFoundException(QuoraErrors.USER_NOT_FOUND);
+        }
+        return userEntity;
     }
 }

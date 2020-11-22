@@ -1,14 +1,8 @@
 package com.upgrad.quora.api.controller;
 
 
-import com.upgrad.quora.api.model.SigninResponse;
-import com.upgrad.quora.api.model.SignoutResponse;
-import com.upgrad.quora.api.model.SignupUserRequest;
-import com.upgrad.quora.api.model.SignupUserResponse;
-import com.upgrad.quora.api.transformers.SigninResponseTransformer;
-import com.upgrad.quora.api.transformers.SignoutResponseTransformer;
-import com.upgrad.quora.api.transformers.SignupUserRequestTransformer;
-import com.upgrad.quora.api.transformers.SignupUserResponseTransformer;
+import com.upgrad.quora.api.model.*;
+import com.upgrad.quora.api.transformers.*;
 import com.upgrad.quora.service.business.UserService;
 import com.upgrad.quora.service.common.Constants;
 import com.upgrad.quora.service.entity.UserAuthEntity;
@@ -16,16 +10,14 @@ import com.upgrad.quora.service.entity.UserEntity;
 import com.upgrad.quora.service.exception.AuthenticationFailedException;
 import com.upgrad.quora.service.exception.SignOutRestrictedException;
 import com.upgrad.quora.service.exception.SignUpRestrictedException;
+import com.upgrad.quora.service.exception.UserNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Base64;
 
@@ -48,6 +40,9 @@ public class UserController {
 
     @Autowired
     private SignoutResponseTransformer signoutResponseTransformer;
+
+    @Autowired
+    private UserDetailsResponseTransformer userDetailsResponseTransformer;
     /**
      *
      * @param signupUserRequest : To create a non admin user with his specific details.
@@ -106,5 +101,21 @@ public class UserController {
         UserAuthEntity userAuthEntity = userService.logout(bearerToken);
         SignoutResponse signoutResponse = signoutResponseTransformer.transform(userAuthEntity);
         return new ResponseEntity<SignoutResponse>(signoutResponse,HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/userprofile/{userId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<UserDetailsResponse> getUser(@PathVariable("userId")String userUuId, @RequestHeader("accessToken") final String accessToken) throws AuthenticationFailedException, UserNotFoundException{
+        String bearerToken = null;
+        try {
+            String[] accessTokenArr = accessToken.split("Bearer ");
+            bearerToken = accessTokenArr[1];
+        }
+        catch (ArrayIndexOutOfBoundsException exe){
+            bearerToken = accessToken;
+        }
+
+        UserEntity userEntity = userService.getUser(userUuId,bearerToken);
+        UserDetailsResponse userDetailsResponse = userDetailsResponseTransformer.transform(userEntity);
+        return new ResponseEntity<UserDetailsResponse>(userDetailsResponse,HttpStatus.OK);
     }
 }

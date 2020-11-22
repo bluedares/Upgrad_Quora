@@ -1,18 +1,27 @@
 package com.upgrad.quora.service.exception;
 
+import com.upgrad.quora.service.common.QuoraErrors;
+import lombok.Data;
+import org.springframework.http.HttpStatus;
+
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
 /**
  * UserNotFoundException is thrown when the user is not found in the database.
  */
+
+@Data
 public class UserNotFoundException extends Exception {
     private final String code;
     private final String errorMessage;
+    private final HttpStatus status;
 
-    public UserNotFoundException(final String code, final String errorMessage) {
-        this.code = code;
-        this.errorMessage = errorMessage;
+
+    public UserNotFoundException(QuoraErrors error){
+        this.code = error.getErrorCode();
+        this.errorMessage = error.getMesssage();
+        this.status = error.getStatus();
     }
 
     @Override
@@ -30,12 +39,5 @@ public class UserNotFoundException extends Exception {
         super.printStackTrace(s);
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
 
 }
