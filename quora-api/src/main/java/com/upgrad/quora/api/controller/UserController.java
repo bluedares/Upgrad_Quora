@@ -19,6 +19,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -72,8 +73,8 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST , path = "/user/signin",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<SigninResponse> authenticate(final String authorization) throws AuthenticationFailedException{
-        String[] authorizationArr = authorization.split("Basic");
+    public ResponseEntity<SigninResponse> authenticate(@RequestHeader("authorization") final String authorization) throws AuthenticationFailedException{
+        String[] authorizationArr = authorization.split("Basic ");
         byte[] decode = Base64.getDecoder().decode(authorizationArr[1]);
         String decodedString = new String(decode);
         String[] authArr = decodedString.split(":");

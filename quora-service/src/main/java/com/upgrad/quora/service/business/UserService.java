@@ -76,6 +76,7 @@ public class UserService {
         return existingUser == null ? false : true;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     public UserAuthEntity authenticate(String userName, String password) throws AuthenticationFailedException{
         UserEntity userEntity = userDao.getUserByUserName(userName);
         if(userEntity == null){
@@ -95,6 +96,7 @@ public class UserService {
         userAuthEntity.setUuid(userEntity.getUuid());
         userEntity.setLoginStatus(LoginStatus.LOGGED_IN.name());
         userAuthEntity.setUser(userEntity);
-        return userDao.createUserAuth(userAuthEntity);
+        userAuthEntity = userDao.createUserAuth(userAuthEntity);
+        return userAuthEntity;
     }
 }
