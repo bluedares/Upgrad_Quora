@@ -13,7 +13,7 @@ public enum QuoraErrors {
     INVALID_ACCESS_TOKEN("INVALID_ACCESS_TOKEN","2003",HttpStatus.UNAUTHORIZED,"Access Token is invalid. You are not authorized."),
     USER_NOT_SIGNED_IN("USER_NOT_SIGNED_IN","2004",HttpStatus.CONFLICT,"You are not logged in the system."),
     EXPIRED_ACCESS_TOKEN("EXPIRED_ACCESS_TOKEN","3001",HttpStatus.UNAUTHORIZED,"Access Token is expired. Please logout and re-login to the system."),
-    USER_NOT_FOUND("USER_NOT_FOUND","3002",HttpStatus.BAD_REQUEST,"User does not exist.");
+    USER_NOT_FOUND("USER_NOT_FOUND","3002",HttpStatus.NOT_FOUND,"User does not exist.");
     @Getter
     private String errorCode;
     @Getter
