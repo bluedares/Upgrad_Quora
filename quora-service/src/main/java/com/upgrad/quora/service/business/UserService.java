@@ -17,6 +17,9 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private PasswordCryptographyProvider passwordCryptographyProvider;
+
 
     @Transactional(propagation = Propagation.REQUIRED)
     public UserEntity signup(UserEntity userEntity) throws SignUpRestrictedException{
@@ -36,6 +39,9 @@ public class UserService {
         if(userEntity.getRole() == null){
             userEntity.setRole(UserRole.ADMIN);
         }
+        String[] encryptedText = passwordCryptographyProvider.encrypt(userEntity.getPassword());
+        userEntity.setSalt(encryptedText[0]);
+        userEntity.setPassword(encryptedText[1]);
         return userDao.createUser(userEntity);
     }
 
