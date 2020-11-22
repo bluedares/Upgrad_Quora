@@ -7,6 +7,7 @@ import com.upgrad.quora.service.dao.UserDao;
 import com.upgrad.quora.service.entity.UserAuthEntity;
 import com.upgrad.quora.service.entity.UserEntity;
 import com.upgrad.quora.service.exception.AuthenticationFailedException;
+import com.upgrad.quora.service.exception.SignOutRestrictedException;
 import com.upgrad.quora.service.exception.SignUpRestrictedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -98,5 +99,21 @@ public class UserService {
         userAuthEntity.setUser(userEntity);
         userAuthEntity = userDao.createUserAuth(userAuthEntity);
         return userAuthEntity;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public UserAuthEntity logout(String accessToken) throws SignOutRestrictedException{
+        UserAuthEntity userAuthEntity = userDao.getUserAuthByAccessToken(accessToken);
+        if(userAuthEntity == null){
+            throw new SignOutRestrictedException(QuoraErrors.INVALID_ACCESS_TOKEN);
+        }
+        UserEntity userEntity = userAuthEntity.getUser();
+        if(!LoginStatus.LOGGED_IN.equals(LoginStatus.valueOf(userEntity.getLoginStatus()))){
+            throw new SignOutRestrictedException(QuoraErrors.USER_NOT_SIGNED_IN);
+        }
+        userAuthEntity.setLogoutAt(ZonedDateTime.now());
+        userEntity.setLoginStatus(LoginStatus.LOGGED_OUT.name());
+        userAuthEntity.setUser(userEntity);
+        return userDao.logoutUser(userAuthEntity);
     }
 }

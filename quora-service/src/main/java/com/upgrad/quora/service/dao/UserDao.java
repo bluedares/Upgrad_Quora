@@ -42,4 +42,18 @@ public class UserDao {
             return null;
         }
     }
+
+    public UserAuthEntity getUserAuthByAccessToken(String accessToken){
+        try{
+            return entityManager.createNamedQuery("userAuthTokenByAccessToken",UserAuthEntity.class).setParameter("accessToken",accessToken).getSingleResult();
+        }
+        catch (NoResultException nre){
+            return null;
+        }
+    }
+
+    public UserAuthEntity logoutUser(UserAuthEntity userAuthEntity){
+        entityManager.merge(userAuthEntity);
+        return userAuthEntity;
+    }
 }
