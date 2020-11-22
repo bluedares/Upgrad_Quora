@@ -22,12 +22,27 @@ public class UserService {
     private PasswordCryptographyProvider passwordCryptographyProvider;
 
 
+    /**
+     *
+     * @param userEntity
+     * @return userEntity
+     * This method is used to create a non-admin user
+     * @throws SignUpRestrictedException
+     */
     @Transactional(propagation = Propagation.REQUIRED)
     public UserEntity signup(UserEntity userEntity) throws SignUpRestrictedException{
         userEntity.setRole(UserRole.NON_ADMIN.name());
         return createUser(userEntity);
     }
 
+    /**
+     *
+     * @param userEntity
+     * @return
+     * This method is used to create both admin and non admin users. If role is not set in prior, the user role is assumed to be admin.
+     * Validate the existence of chosen user name and email. If exists, throw exception. Else create the user.
+     * @throws SignUpRestrictedException
+     */
     @Transactional(propagation = Propagation.REQUIRED)
     public UserEntity createUser(UserEntity userEntity) throws SignUpRestrictedException{
         if(isUserEmailExist(userEntity)){

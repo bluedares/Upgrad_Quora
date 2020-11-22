@@ -31,6 +31,12 @@ public class UserController {
     @Autowired
     private SignupUserResponseTransformer signupUserResponseTransformer;
 
+    /**
+     *
+     * @param signupUserRequest : To create an user with his specific details.
+     * @return SignupUserResponse: Returns ID and login status of the user.
+     * @throws SignUpRestrictedException
+     */
 
     @RequestMapping(method = RequestMethod.POST, path = "/user/signup", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<SignupUserResponse> signup(final SignupUserRequest signupUserRequest) throws SignUpRestrictedException {
