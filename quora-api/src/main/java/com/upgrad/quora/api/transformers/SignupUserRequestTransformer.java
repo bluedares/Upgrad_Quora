@@ -15,7 +15,7 @@ public class SignupUserRequestTransformer {
         userEntity.setFirstName(signupUserRequest.getFirstName());
         userEntity.setLastName(signupUserRequest.getLastName());
         userEntity.setUserName(signupUserRequest.getUserName());
-        userEntity.setEmail(signupUserRequest.getLastName());
+        userEntity.setEmail(signupUserRequest.getEmailAddress());
         userEntity.setPassword(signupUserRequest.getPassword());
         userEntity.setContactNumber(signupUserRequest.getContactNumber());
         userEntity.setDob(signupUserRequest.getDob());
