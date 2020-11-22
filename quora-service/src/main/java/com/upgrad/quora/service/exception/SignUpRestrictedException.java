@@ -1,20 +1,28 @@
 package com.upgrad.quora.service.exception;
 
+import com.upgrad.quora.service.common.QuoraErrors;
+import lombok.Data;
+import org.springframework.http.HttpStatus;
+
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
 /**
  * SignUpRestrictedException is thrown when a user is restricted to register in the application due to repeated username or email.
  */
+
+@Data
 public class SignUpRestrictedException extends Exception {
     private final String code;
     private final String errorMessage;
+    private final HttpStatus status;
 
-    public SignUpRestrictedException(final String code, final String errorMessage) {
-        this.code = code;
-        this.errorMessage = errorMessage;
+
+    public SignUpRestrictedException(QuoraErrors error){
+        this.code = error.getErrorCode();
+        this.errorMessage = error.getMesssage();
+        this.status = error.getStatus();
     }
-
     @Override
     public void printStackTrace() {
         super.printStackTrace();
@@ -28,14 +36,6 @@ public class SignUpRestrictedException extends Exception {
     @Override
     public void printStackTrace(PrintWriter s) {
         super.printStackTrace(s);
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
     }
 
 }
