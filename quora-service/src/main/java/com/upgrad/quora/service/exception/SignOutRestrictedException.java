@@ -1,6 +1,7 @@
 package com.upgrad.quora.service.exception;
 
 import com.upgrad.quora.service.common.QuoraErrors;
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 import java.io.PrintStream;
@@ -9,6 +10,8 @@ import java.io.PrintWriter;
 /**
  * SignOutRestrictedException is thrown when a user is not signed in the application and tries to sign out of the application.
  */
+
+@Data
 public class SignOutRestrictedException extends Exception {
     private final String code;
     private final String errorMessage;
@@ -34,14 +37,6 @@ public class SignOutRestrictedException extends Exception {
     @Override
     public void printStackTrace(PrintWriter s) {
         super.printStackTrace(s);
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
     }
 
 }

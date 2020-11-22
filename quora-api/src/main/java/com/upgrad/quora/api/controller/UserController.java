@@ -2,9 +2,11 @@ package com.upgrad.quora.api.controller;
 
 
 import com.upgrad.quora.api.model.SigninResponse;
+import com.upgrad.quora.api.model.SignoutResponse;
 import com.upgrad.quora.api.model.SignupUserRequest;
 import com.upgrad.quora.api.model.SignupUserResponse;
 import com.upgrad.quora.api.transformers.SigninResponseTransformer;
+import com.upgrad.quora.api.transformers.SignoutResponseTransformer;
 import com.upgrad.quora.api.transformers.SignupUserRequestTransformer;
 import com.upgrad.quora.api.transformers.SignupUserResponseTransformer;
 import com.upgrad.quora.service.business.UserService;
@@ -12,6 +14,7 @@ import com.upgrad.quora.service.common.Constants;
 import com.upgrad.quora.service.entity.UserAuthEntity;
 import com.upgrad.quora.service.entity.UserEntity;
 import com.upgrad.quora.service.exception.AuthenticationFailedException;
+import com.upgrad.quora.service.exception.SignOutRestrictedException;
 import com.upgrad.quora.service.exception.SignUpRestrictedException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +45,9 @@ public class UserController {
 
     @Autowired
     private SigninResponseTransformer signinResponseTransformer;
+
+    @Autowired
+    private SignoutResponseTransformer signoutResponseTransformer;
     /**
      *
      * @param signupUserRequest : To create a non admin user with his specific details.
@@ -84,5 +90,21 @@ public class UserController {
         HttpHeaders headers = new HttpHeaders();
         headers.add(Constants.ACCESS_TOKEN,userAuthEntity.getAccessToken());
         return new ResponseEntity<SigninResponse>(signinResponse,headers,HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.POST , path = "/user/signout",produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<SignoutResponse> logout(@RequestHeader("accessToken") final String accessToken) throws SignOutRestrictedException{
+        String bearerToken = null;
+        try {
+            String[] accessTokenArr = accessToken.split("Bearer ");
+            bearerToken = accessTokenArr[1];
+        }
+        catch (ArrayIndexOutOfBoundsException exe){
+            bearerToken = accessToken;
+        }
+
+        UserAuthEntity userAuthEntity = userService.logout(bearerToken);
+        SignoutResponse signoutResponse = signoutResponseTransformer.transform(userAuthEntity);
+        return new ResponseEntity<SignoutResponse>(signoutResponse,HttpStatus.OK);
     }
 }
