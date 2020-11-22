@@ -4,7 +4,9 @@ import com.upgrad.quora.service.common.LoginStatus;
 import com.upgrad.quora.service.common.QuoraErrors;
 import com.upgrad.quora.service.common.UserRole;
 import com.upgrad.quora.service.dao.UserDao;
+import com.upgrad.quora.service.entity.UserAuthEntity;
 import com.upgrad.quora.service.entity.UserEntity;
+import com.upgrad.quora.service.exception.AuthenticationFailedException;
 import com.upgrad.quora.service.exception.SignUpRestrictedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -70,5 +72,20 @@ public class UserService {
     private boolean isUserEmailExist(UserEntity userEntity){
         UserEntity existingUser = userDao.getUserByEmail(userEntity.getEmail());
         return existingUser == null ? false : true;
+    }
+
+    public UserAuthEntity authenticate(String userName, String password) throws AuthenticationFailedException{
+        UserEntity userEntity = userDao.getUserByUserName(userName);
+        if(userEntity == null){
+            throw new AuthenticationFailedException(QuoraErrors.USER_NOT_FOUND);
+        }
+        String encryptedPassword = passwordCryptographyProvider.encrypt(password,userEntity.getSalt());
+        if(!encryptedPassword.equals(userEntity.getPassword())){
+            throw new AuthenticationFailedException(QuoraErrors.INCORRECT_PASSWORD);
+        }
+        JwtTokenProvider jwtTokenProvider = new JwtTokenProvider(encryptedPassword);
+        UserAuthEntity userAuthEntity = new UserAuthEntity();
+        userAuthEntity.setUser(userEntity);
+        return null;
     }
 }
