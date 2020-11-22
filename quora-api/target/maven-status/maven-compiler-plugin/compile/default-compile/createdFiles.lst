@@ -13,6 +13,7 @@ com/upgrad/quora/api/transformers/SignupUserRequestTransformer.class
 com/upgrad/quora/api/model/QuestionRequest.class
 io/swagger/RFC3339DateFormat.class
 io/swagger/api/ApiException.class
+com/upgrad/quora/api/transformers/SigninResponseTransformer.class
 com/upgrad/quora/api/model/QuestionDetailsResponse.class
 com/upgrad/quora/api/model/AnswerDeleteResponse.class
 com/upgrad/quora/api/model/AnswerEditRequest.class
