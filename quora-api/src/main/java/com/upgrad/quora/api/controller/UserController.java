@@ -39,9 +39,24 @@ public class UserController {
      */
 
     @RequestMapping(method = RequestMethod.POST, path = "/user/signup", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<SignupUserResponse> signup(final SignupUserRequest signupUserRequest) throws SignUpRestrictedException {
+    public ResponseEntity<SignupUserResponse> userSignup(final SignupUserRequest signupUserRequest) throws SignUpRestrictedException {
         UserEntity userEntity = signupUserRequestTransformer.transform(signupUserRequest);
         userEntity = userService.signup(userEntity);
+        SignupUserResponse signupUserResponse = signupUserResponseTransformer.transform(userEntity);
+        return new ResponseEntity<SignupUserResponse>(signupUserResponse,HttpStatus.CREATED);
+    }
+
+    /**
+     *
+     * @param signupUserRequest : To create an user with his specific details.
+     * @return SignupUserResponse: Returns ID and login status of the user.
+     * @throws SignUpRestrictedException
+     */
+
+    @RequestMapping(method = RequestMethod.POST, path = "/user/admin/signup", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<SignupUserResponse> adminSignup(final SignupUserRequest signupUserRequest) throws SignUpRestrictedException {
+        UserEntity userEntity = signupUserRequestTransformer.transform(signupUserRequest);
+        userEntity = userService.createUser(userEntity);
         SignupUserResponse signupUserResponse = signupUserResponseTransformer.transform(userEntity);
         return new ResponseEntity<SignupUserResponse>(signupUserResponse,HttpStatus.CREATED);
     }
