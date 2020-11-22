@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.ZonedDateTime;
+
 @Service
 public class UserService {
 
@@ -85,7 +87,14 @@ public class UserService {
         }
         JwtTokenProvider jwtTokenProvider = new JwtTokenProvider(encryptedPassword);
         UserAuthEntity userAuthEntity = new UserAuthEntity();
+        ZonedDateTime currentTime = ZonedDateTime.now();
+        ZonedDateTime expiresAt = currentTime.plusHours(8);
+        userAuthEntity.setAccessToken(jwtTokenProvider.generateToken(userEntity.getUuid(),currentTime,expiresAt));
+        userAuthEntity.setLoginAt(currentTime);
+        userAuthEntity.setExpiresAt(expiresAt);
+        userAuthEntity.setUuid(userEntity.getUuid());
+        userEntity.setLoginStatus(LoginStatus.LOGGED_IN.name());
         userAuthEntity.setUser(userEntity);
-        return null;
+        return userDao.createUserAuth(userAuthEntity);
     }
 }

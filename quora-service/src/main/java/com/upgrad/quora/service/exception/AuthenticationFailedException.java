@@ -1,6 +1,7 @@
 package com.upgrad.quora.service.exception;
 
 import com.upgrad.quora.service.common.QuoraErrors;
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 import java.io.PrintStream;
@@ -9,6 +10,8 @@ import java.io.PrintWriter;
 /**
  * AuthenticationFailedException is thrown in case of authentication failure.
  */
+
+@Data
 public class AuthenticationFailedException extends Exception {
     private final String code;
     private final String errorMessage;
@@ -33,14 +36,6 @@ public class AuthenticationFailedException extends Exception {
     @Override
     public void printStackTrace(PrintWriter s) {
         super.printStackTrace(s);
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
     }
 
 }
