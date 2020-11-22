@@ -1,6 +1,5 @@
 package com.upgrad.quora.service.entity;
 
-import com.upgrad.quora.service.common.UserRole;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -58,6 +57,10 @@ public class UserEntity implements Serializable {
     @Size(max = 100)
     private String salt;
 
+    @Column(name = "loginStatus")
+    @NotNull
+    private String loginStatus;
+
     @Column(name = "country")
     @Size(max = 30)
     private String country;
@@ -72,7 +75,7 @@ public class UserEntity implements Serializable {
 
     @Column(name = "role")
     @Size(max = 30)
-    private UserRole role;
+    private String role;
 
     @Column(name = "contactnumber")
     @Size(max = 30)

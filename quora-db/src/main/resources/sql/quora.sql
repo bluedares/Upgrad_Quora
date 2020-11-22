@@ -1,10 +1,10 @@
 
 --USERS table is created to store the details of all the users
 DROP TABLE IF EXISTS USERS CASCADE;
-CREATE TABLE IF NOT EXISTS USERS(id SERIAL, uuid VARCHAR(200) NOT NULL ,firstName VARCHAR(30) NOT NULL , lastName VARCHAR(30) NOT NULL ,userName VARCHAR(30) UNIQUE NOT NULL,  email VARCHAR(50) UNIQUE NOT NULL ,password VARCHAR(255) NOT NULL, salt VARCHAR(200) NOT NULL ,country VARCHAR(30) ,aboutMe VARCHAR(50),dob VARCHAR(30), role VARCHAR(30),contactNumber VARCHAR(30), PRIMARY KEY (id));
+CREATE TABLE IF NOT EXISTS USERS(id SERIAL, uuid VARCHAR(200) NOT NULL ,firstName VARCHAR(30) NOT NULL , lastName VARCHAR(30) NOT NULL ,userName VARCHAR(30) UNIQUE NOT NULL,  email VARCHAR(50) UNIQUE NOT NULL ,password VARCHAR(255) NOT NULL, salt VARCHAR(200) NOT NULL ,loginStatus VARCHAR(30) NOT NULL,country VARCHAR(30) ,aboutMe VARCHAR(50),dob VARCHAR(30), role VARCHAR(30),contactNumber VARCHAR(30), PRIMARY KEY (id));
 INSERT INTO users(
-	id, uuid, firstname, lastname, username, email, password, salt, country, aboutme, dob, role, contactnumber)
-	VALUES (1024,'rdtrdtdyt','Abhi','Mahajan','abhi','a@gmail.com','507FF5FED1CAC746','8Xt6jxoCI3MWsVaKY/1ySAp2qzlb2Z7P89+vDrb1o6U=', 'India' ,'I am @ UpGrad' ,'22-10-1995' , 'admin' , '1222333333' );
+	id, uuid, firstname, lastname, username, email, password, salt,loginStatus, country, aboutme, dob, role, contactnumber)
+	VALUES (1024,'rdtrdtdyt','Abhi','Mahajan','abhi','a@gmail.com','507FF5FED1CAC746','8Xt6jxoCI3MWsVaKY/1ySAp2qzlb2Z7P89+vDrb1o6U=', 'LOGGED_IN','India' ,'I am @ UpGrad' ,'22-10-1995' , 'admin' , '1222333333' );
 
 --USER_AUTH table is created to store the login information of all the users
 DROP TABLE IF EXISTS USER_AUTH CASCADE;

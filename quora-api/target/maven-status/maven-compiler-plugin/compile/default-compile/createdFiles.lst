@@ -8,6 +8,7 @@ io/swagger/api/ApiOriginFilter.class
 io/swagger/Swagger2SpringBoot$ExitException.class
 io/swagger/configuration/HomeController.class
 com/upgrad/quora/api/model/SigninResponse.class
+com/upgrad/quora/api/transformers/SignupUserRequestTransformer.class
 com/upgrad/quora/api/model/QuestionRequest.class
 io/swagger/RFC3339DateFormat.class
 io/swagger/api/ApiException.class

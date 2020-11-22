@@ -1,5 +1,6 @@
 package com.upgrad.quora.service.business;
 
+import com.upgrad.quora.service.common.LoginStatus;
 import com.upgrad.quora.service.common.QuoraErrors;
 import com.upgrad.quora.service.common.UserRole;
 import com.upgrad.quora.service.dao.UserDao;
@@ -23,7 +24,7 @@ public class UserService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     public UserEntity signup(UserEntity userEntity) throws SignUpRestrictedException{
-        userEntity.setRole(UserRole.NON_ADMIN);
+        userEntity.setRole(UserRole.NON_ADMIN.name());
         return createUser(userEntity);
     }
 
@@ -37,11 +38,12 @@ public class UserService {
             throw new SignUpRestrictedException(QuoraErrors.USER_NAME_ALREADY_EXISTS);
         }
         if(userEntity.getRole() == null){
-            userEntity.setRole(UserRole.ADMIN);
+            userEntity.setRole(UserRole.ADMIN.name());
         }
         String[] encryptedText = passwordCryptographyProvider.encrypt(userEntity.getPassword());
         userEntity.setSalt(encryptedText[0]);
         userEntity.setPassword(encryptedText[1]);
+        userEntity.setLoginStatus(LoginStatus.REGISTERED.name());
         return userDao.createUser(userEntity);
     }
 
