@@ -15,7 +15,8 @@ public enum QuoraErrors {
     EXPIRED_ACCESS_TOKEN("EXPIRED_ACCESS_TOKEN","3002",HttpStatus.FORBIDDEN,"Access Token is expired. Please logout and re-login to the system."),
     NOT_AN_ADMIN("NOT_AN_ADMIN","3003",HttpStatus.FORBIDDEN,"You are not admin user. Hence you are forbidden to perform this operation"),
     USER_NOT_FOUND("USER_NOT_FOUND","4001",HttpStatus.NOT_FOUND,"User does not exist."),
-    USER_TO_BE_DELETED_DOES_NOT_EXIST("USER_TO_BE_DELETED_DOES_NOT_EXIST","4002",HttpStatus.NOT_FOUND,"User to be deleted does not exist");
+    USER_TO_BE_DELETED_DOES_NOT_EXIST("USER_TO_BE_DELETED_DOES_NOT_EXIST","4002",HttpStatus.NOT_FOUND,"User to be deleted does not exist"),
+    NO_QUESTIONS_PRESENT("NO_QUESTIONS_PRESENT","5001",HttpStatus.INTERNAL_SERVER_ERROR,"No questions present in quora");
     @Getter
     private String errorCode;
     @Getter
