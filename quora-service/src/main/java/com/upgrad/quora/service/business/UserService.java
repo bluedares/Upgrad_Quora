@@ -6,10 +6,7 @@ import com.upgrad.quora.service.common.UserRole;
 import com.upgrad.quora.service.dao.UserDao;
 import com.upgrad.quora.service.entity.UserAuthEntity;
 import com.upgrad.quora.service.entity.UserEntity;
-import com.upgrad.quora.service.exception.AuthenticationFailedException;
-import com.upgrad.quora.service.exception.SignOutRestrictedException;
-import com.upgrad.quora.service.exception.SignUpRestrictedException;
-import com.upgrad.quora.service.exception.UserNotFoundException;
+import com.upgrad.quora.service.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.stereotype.Service;
@@ -119,13 +116,13 @@ public class UserService {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public UserEntity getUser(String uuid,String accessToken) throws AuthenticationFailedException , UserNotFoundException{
+    public UserEntity getUser(String uuid,String accessToken) throws AuthenticationFailedException ,AuthorizationFailedException, UserNotFoundException{
         UserAuthEntity userAuthEntity = userDao.getUserAuthByAccessToken(accessToken);
         if(userAuthEntity == null){
-            throw new AuthenticationFailedException(QuoraErrors.INVALID_ACCESS_TOKEN);
+            throw new AuthorizationFailedException(QuoraErrors.INVALID_ACCESS_TOKEN);
         }
         if(ZonedDateTime.now().isAfter(userAuthEntity.getExpiresAt())){
-            throw new AuthenticationFailedException(QuoraErrors.EXPIRED_ACCESS_TOKEN);
+            throw new AuthorizationFailedException(QuoraErrors.EXPIRED_ACCESS_TOKEN);
         }
         if(!LoginStatus.LOGGED_IN.equals(LoginStatus.valueOf(userAuthEntity.getUser().getLoginStatus()))){
             throw new AuthenticationFailedException(QuoraErrors.USER_NOT_SIGNED_IN);
@@ -135,5 +132,28 @@ public class UserService {
             throw new UserNotFoundException(QuoraErrors.USER_NOT_FOUND);
         }
         return userEntity;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public String deleteUser(String uuid,String accessToken) throws AuthenticationFailedException,AuthorizationFailedException, UserNotFoundException{
+        UserAuthEntity userAuthEntity = userDao.getUserAuthByAccessToken(accessToken);
+        if(userAuthEntity == null){
+            throw new AuthorizationFailedException(QuoraErrors.INVALID_ACCESS_TOKEN);
+        }
+        if(ZonedDateTime.now().isAfter(userAuthEntity.getExpiresAt())){
+            throw new AuthorizationFailedException(QuoraErrors.EXPIRED_ACCESS_TOKEN);
+        }
+        if(!LoginStatus.LOGGED_IN.equals(LoginStatus.valueOf(userAuthEntity.getUser().getLoginStatus()))){
+            throw new AuthenticationFailedException(QuoraErrors.USER_NOT_SIGNED_IN);
+        }
+        if(!UserRole.ADMIN.equals(UserRole.valueOf(userAuthEntity.getUser().getRole()))){
+            throw new AuthorizationFailedException(QuoraErrors.NOT_AN_ADMIN);
+        }
+        UserEntity userEntity = userDao.getUserByUuid(uuid);
+        if(userEntity == null){
+            throw new UserNotFoundException(QuoraErrors.USER_TO_BE_DELETED_DOES_NOT_EXIST);
+        }
+        userDao.deleteUser(userEntity);
+        return uuid;
     }
 }

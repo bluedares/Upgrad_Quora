@@ -7,10 +7,7 @@ import com.upgrad.quora.service.business.UserService;
 import com.upgrad.quora.service.common.Constants;
 import com.upgrad.quora.service.entity.UserAuthEntity;
 import com.upgrad.quora.service.entity.UserEntity;
-import com.upgrad.quora.service.exception.AuthenticationFailedException;
-import com.upgrad.quora.service.exception.SignOutRestrictedException;
-import com.upgrad.quora.service.exception.SignUpRestrictedException;
-import com.upgrad.quora.service.exception.UserNotFoundException;
+import com.upgrad.quora.service.exception.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -43,6 +40,9 @@ public class UserController {
 
     @Autowired
     private UserDetailsResponseTransformer userDetailsResponseTransformer;
+
+    @Autowired
+    private UserDeleteResponseTransformer userDeleteResponseTransformer;
     /**
      *
      * @param signupUserRequest : To create a non admin user with his specific details.
@@ -104,7 +104,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/userprofile/{userId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<UserDetailsResponse> getUser(@PathVariable("userId")String userUuId, @RequestHeader("accessToken") final String accessToken) throws AuthenticationFailedException, UserNotFoundException{
+    public ResponseEntity<UserDetailsResponse> getUser(@PathVariable("userId")String userUuId, @RequestHeader("accessToken") final String accessToken) throws AuthenticationFailedException, AuthorizationFailedException,UserNotFoundException{
         String bearerToken = null;
         try {
             String[] accessTokenArr = accessToken.split("Bearer ");
@@ -117,5 +117,20 @@ public class UserController {
         UserEntity userEntity = userService.getUser(userUuId,bearerToken);
         UserDetailsResponse userDetailsResponse = userDetailsResponseTransformer.transform(userEntity);
         return new ResponseEntity<UserDetailsResponse>(userDetailsResponse,HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, path = "/admin/user/{userId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<UserDeleteResponse> deleteUser(@PathVariable("userId")String userUuid,@RequestHeader("accessToken")final String accessToken) throws AuthorizationFailedException,AuthenticationFailedException,UserNotFoundException{
+        String bearerToken = null;
+        try {
+            String[] accessTokenArr = accessToken.split("Bearer ");
+            bearerToken = accessTokenArr[1];
+        }
+        catch (ArrayIndexOutOfBoundsException exe){
+            bearerToken = accessToken;
+        }
+        String uuid = userService.deleteUser(userUuid,bearerToken);
+        UserDeleteResponse userDeleteResponse = userDeleteResponseTransformer.transform(uuid);
+        return new ResponseEntity<UserDeleteResponse>(userDeleteResponse,HttpStatus.OK);
     }
 }
