@@ -141,7 +141,7 @@ public class UserService {
         userDao.deleteUser(userEntity);
         return uuid;
     }
-    public UserAuthEntity validateAccessToken(String accessToken) throws AuthenticationFailedException,AuthorizationFailedException, UserNotFoundException{
+    public UserAuthEntity validateAccessToken(String accessToken) throws AuthenticationFailedException,AuthorizationFailedException{
         UserAuthEntity userAuthEntity = userDao.getUserAuthByAccessToken(accessToken);
         if(userAuthEntity == null){
             throw new AuthorizationFailedException(QuoraErrors.INVALID_ACCESS_TOKEN);

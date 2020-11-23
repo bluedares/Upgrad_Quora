@@ -9,6 +9,7 @@ import com.upgrad.quora.service.entity.UserAuthEntity;
 import com.upgrad.quora.service.exception.AuthenticationFailedException;
 import com.upgrad.quora.service.exception.AuthorizationFailedException;
 import com.upgrad.quora.service.exception.InvalidQuestionException;
+import com.upgrad.quora.service.exception.QuestionNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -32,35 +33,17 @@ public class QuestionService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     public QuestionEntity createQuestion(QuestionEntity questionEntity, String accessToken) throws AuthenticationFailedException,AuthorizationFailedException{
-        UserAuthEntity userAuthEntity = userDao.getUserAuthByAccessToken(accessToken);
-        if(userAuthEntity == null){
-            throw new AuthorizationFailedException(QuoraErrors.INVALID_ACCESS_TOKEN);
-        }
-        if(ZonedDateTime.now().isAfter(userAuthEntity.getExpiresAt())){
-            throw new AuthorizationFailedException(QuoraErrors.EXPIRED_ACCESS_TOKEN);
-        }
-        if(!LoginStatus.LOGGED_IN.equals(LoginStatus.valueOf(userAuthEntity.getUser().getLoginStatus()))){
-            throw new AuthenticationFailedException(QuoraErrors.USER_NOT_SIGNED_IN);
-        }
+        UserAuthEntity userAuthEntity = userService.validateAccessToken(accessToken);
         questionEntity.setUser(userAuthEntity.getUser());
         return questionDao.createQuestion(questionEntity);
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public List<QuestionEntity> getAllQuestions(String accessToken) throws AuthenticationFailedException,AuthorizationFailedException,InvalidQuestionException{
-        UserAuthEntity userAuthEntity = userDao.getUserAuthByAccessToken(accessToken);
-        if(userAuthEntity == null){
-            throw new AuthorizationFailedException(QuoraErrors.INVALID_ACCESS_TOKEN);
-        }
-        if(ZonedDateTime.now().isAfter(userAuthEntity.getExpiresAt())){
-            throw new AuthorizationFailedException(QuoraErrors.EXPIRED_ACCESS_TOKEN);
-        }
-        if(!LoginStatus.LOGGED_IN.equals(LoginStatus.valueOf(userAuthEntity.getUser().getLoginStatus()))){
-            throw new AuthenticationFailedException(QuoraErrors.USER_NOT_SIGNED_IN);
-        }
+    public List<QuestionEntity> getAllQuestions(String accessToken) throws AuthenticationFailedException,AuthorizationFailedException,QuestionNotFoundException{
+        UserAuthEntity userAuthEntity = userService.validateAccessToken(accessToken);
         List<QuestionEntity> questionEntities = questionDao.getAllQuestions();
         if(CollectionUtils.isEmpty(questionEntities)){
-            throw new InvalidQuestionException(QuoraErrors.NO_QUESTIONS_PRESENT);
+            throw new QuestionNotFoundException(QuoraErrors.NO_QUESTIONS_PRESENT);
         }
         return questionEntities;
     }
