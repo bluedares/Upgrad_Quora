@@ -16,8 +16,11 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
+import javax.sql.rowset.spi.TransactionalWriter;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -77,5 +80,19 @@ public class AnswerService {
         AnswerEntity existingAnswer = answerDao.getAnswerByUuid(answerUuid);
         validateAnswer(existingAnswer,userAuthEntity);
         answerDao.deleteAnswer(existingAnswer);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public List<AnswerEntity> getAllAnswersToQuestion(String questionUuid,String accessToken) throws AnswerNotFoundException, QuestionNotFoundException, AuthenticationFailedException, AuthorizationFailedException{
+        UserAuthEntity userAuthEntity = userService.validateAccessToken(accessToken);
+        QuestionEntity questionEntity = questionDao.getQuestionByQuestionUuid(questionUuid);
+        if(questionEntity == null){
+            throw new QuestionNotFoundException(QuoraErrors.QUESTION_DOES_NOT_EXIST);
+        }
+        List<AnswerEntity> answerEntities = answerDao.getAllAnswersToQuestion(questionUuid);
+        if(CollectionUtils.isEmpty(answerEntities)){
+            throw new AnswerNotFoundException(QuoraErrors.NO_ANSWERS_TO_QUESTION);
+        }
+        return answerEntities;
     }
 }

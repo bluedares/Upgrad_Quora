@@ -12,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/")
 public class AnswerController {
@@ -36,6 +38,9 @@ public class AnswerController {
 
     @Autowired
     private AnswerDeleteResponseTransformer answerDeleteResponseTransformer;
+
+    @Autowired
+    private AnswerDetailsResponseTransformer answerDetailsResponseTransformer;
 
     @RequestMapping(method = RequestMethod.POST,path = "/question/{questionId}/answer/create", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<AnswerResponse> createAnswer(final AnswerRequest answerRequest,
@@ -69,5 +74,15 @@ public class AnswerController {
         answerService.deleteAnswer(answerId,bearerToken);
         AnswerDeleteResponse answerDeleteResponse = answerDeleteResponseTransformer.transform(answerId);
         return new ResponseEntity<AnswerDeleteResponse>(answerDeleteResponse,HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/answer/all/{questionId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<AnswerDetailsResponse>> getAllAnswersToQuestion (@PathVariable("questionId") final String questionId,
+                                                                                @RequestHeader("accessToken") final String accessToken)
+            throws QuestionNotFoundException, AnswerNotFoundException, AuthorizationFailedException, AuthenticationFailedException{
+        String bearerToken = tokenService.getBearerToken(accessToken);
+        List<AnswerEntity> answerEntities = answerService.getAllAnswersToQuestion(questionId,bearerToken);
+        List<AnswerDetailsResponse> answerDetailsResponses = answerDetailsResponseTransformer.transform(answerEntities);
+        return new ResponseEntity<List<AnswerDetailsResponse>>(answerDetailsResponses,HttpStatus.OK);
     }
 }
