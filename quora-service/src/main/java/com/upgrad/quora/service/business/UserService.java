@@ -24,6 +24,9 @@ public class UserService {
     @Autowired
     private PasswordCryptographyProvider passwordCryptographyProvider;
 
+    @Autowired
+    private TokenService tokenService;
+
 
     /**
      *
@@ -85,14 +88,13 @@ public class UserService {
         if(!encryptedPassword.equals(userEntity.getPassword())){
             throw new AuthenticationFailedException(QuoraErrors.INCORRECT_PASSWORD);
         }
-        JwtTokenProvider jwtTokenProvider = new JwtTokenProvider(encryptedPassword);
         UserAuthEntity userAuthEntity = userDao.getUserAuthByUuid(userEntity.getUuid());
         if(userAuthEntity == null){
             userAuthEntity = new UserAuthEntity();
         }
         ZonedDateTime currentTime = ZonedDateTime.now();
         ZonedDateTime expiresAt = currentTime.plusHours(8);
-        userAuthEntity.setAccessToken(jwtTokenProvider.generateToken(userEntity.getUuid(),currentTime,expiresAt));
+        userAuthEntity.setAccessToken(tokenService.generateToken(encryptedPassword,userEntity.getUuid(),currentTime,expiresAt));
         userAuthEntity.setLoginAt(currentTime);
         userAuthEntity.setExpiresAt(expiresAt);
         userAuthEntity.setUuid(userEntity.getUuid());

@@ -7,6 +7,7 @@ import com.upgrad.quora.api.transformers.CreateQuestionRequestTransformer;
 import com.upgrad.quora.api.transformers.CreateQuestionResponseTransformer;
 import com.upgrad.quora.api.transformers.QuestionDetailsResponseTransformer;
 import com.upgrad.quora.service.business.QuestionService;
+import com.upgrad.quora.service.business.TokenService;
 import com.upgrad.quora.service.entity.QuestionEntity;
 import com.upgrad.quora.service.exception.AuthenticationFailedException;
 import com.upgrad.quora.service.exception.AuthorizationFailedException;
@@ -30,6 +31,9 @@ public class QuestionController {
     private QuestionService questionService;
 
     @Autowired
+    private TokenService tokenService;
+
+    @Autowired
     private CreateQuestionRequestTransformer createQuestionRequestTransformer;
 
     @Autowired
@@ -40,14 +44,7 @@ public class QuestionController {
 
     @RequestMapping(method = RequestMethod.POST, path = "/question/create", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<QuestionResponse> createQuestion(final QuestionRequest questionRequest, @RequestHeader("accessToken") final String accessToken) throws AuthorizationFailedException, AuthenticationFailedException {
-        // Logic to handle Bearer <accesstoken>
-        // User can give only Access token or Bearer <accesstoken> as input.
-        String bearerToken = null;
-        try {
-            bearerToken = accessToken.split("Bearer ")[1];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            bearerToken = accessToken;
-        }
+        String bearerToken = tokenService.getBearerToken(accessToken);
         QuestionEntity questionEntity = createQuestionRequestTransformer.transform(questionRequest);
         questionEntity = questionService.createQuestion(questionEntity,bearerToken);
         QuestionResponse questionResponse = createQuestionResponseTransformer.transform(questionEntity);
@@ -55,14 +52,7 @@ public class QuestionController {
     }
     @RequestMapping(method = RequestMethod.GET, path = "/question/all", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<QuestionDetailsResponse>> getAllQuestions(@RequestHeader("accessToken") final String accessToken) throws AuthenticationFailedException,AuthorizationFailedException, QuestionNotFoundException {
-        // Logic to handle Bearer <accesstoken>
-        // User can give only Access token or Bearer <accesstoken> as input.
-        String bearerToken = null;
-        try {
-            bearerToken = accessToken.split("Bearer ")[1];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            bearerToken = accessToken;
-        }
+        String bearerToken = tokenService.getBearerToken(accessToken);
         List<QuestionEntity> questionEntities = questionService.getAllQuestions(bearerToken);
         List<QuestionDetailsResponse> questionDetailsResponses = questionDetailsResponseTransformer.transform(questionEntities);
         return new ResponseEntity<List<QuestionDetailsResponse>>(questionDetailsResponses,HttpStatus.OK);
