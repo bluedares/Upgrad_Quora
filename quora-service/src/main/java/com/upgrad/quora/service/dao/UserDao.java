@@ -21,6 +21,11 @@ public class UserDao {
     }
 
     public UserAuthEntity createUserAuth(UserAuthEntity userAuthEntity){
+        entityManager.persist(userAuthEntity);
+        return userAuthEntity;
+    }
+
+    public UserAuthEntity updateUserAuth(UserAuthEntity userAuthEntity){
         entityManager.merge(userAuthEntity);
         return userAuthEntity;
     }

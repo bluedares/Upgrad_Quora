@@ -36,4 +36,9 @@ public class QuestionDao {
             return null;
         }
     }
+
+    public QuestionEntity updateQuestion(QuestionEntity questionEntity){
+        entityManager.merge(questionEntity);
+        return questionEntity;
+    }
 }

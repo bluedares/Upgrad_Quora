@@ -89,7 +89,8 @@ public class UserService {
             throw new AuthenticationFailedException(QuoraErrors.INCORRECT_PASSWORD);
         }
         UserAuthEntity userAuthEntity = userDao.getUserAuthByUuid(userEntity.getUuid());
-        if(userAuthEntity == null){
+        Boolean hasUserLoggedInBefore = userAuthEntity == null ? false:true;
+        if(!hasUserLoggedInBefore){
             userAuthEntity = new UserAuthEntity();
         }
         ZonedDateTime currentTime = ZonedDateTime.now();
@@ -100,7 +101,7 @@ public class UserService {
         userAuthEntity.setUuid(userEntity.getUuid());
         userEntity.setLoginStatus(LoginStatus.LOGGED_IN.name());
         userAuthEntity.setUser(userEntity);
-        userAuthEntity = userDao.createUserAuth(userAuthEntity);
+        userAuthEntity = hasUserLoggedInBefore? userDao.updateUserAuth(userAuthEntity) : userDao.createUserAuth(userAuthEntity);
         return userAuthEntity;
     }
 
