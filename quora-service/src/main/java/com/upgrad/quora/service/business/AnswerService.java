@@ -70,4 +70,12 @@ public class AnswerService {
         answerEntity.setUser(existingAnswer.getUser());
         return answerDao.updateAnswer(answerEntity);
     }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteAnswer(String answerUuid,String accessToken) throws AnswerNotFoundException, AuthenticationFailedException, AuthorizationFailedException{
+        UserAuthEntity userAuthEntity = userService.validateAccessToken(accessToken);
+        AnswerEntity existingAnswer = answerDao.getAnswerByUuid(answerUuid);
+        validateAnswer(existingAnswer,userAuthEntity);
+        answerDao.deleteAnswer(existingAnswer);
+    }
 }

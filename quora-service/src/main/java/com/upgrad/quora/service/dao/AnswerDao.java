@@ -22,6 +22,10 @@ public class AnswerDao {
         return answerEntity;
     }
 
+    public void deleteAnswer(AnswerEntity answerEntity){
+        entityManager.remove(answerEntity);
+    }
+
     public AnswerEntity getAnswerByUuid(String answerUuid){
         try{
             return entityManager.createNamedQuery("answerEntityByUuid",AnswerEntity.class).setParameter("uuid",answerUuid).getSingleResult();

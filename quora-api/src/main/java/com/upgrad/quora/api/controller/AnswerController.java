@@ -1,13 +1,7 @@
 package com.upgrad.quora.api.controller;
 
-import com.upgrad.quora.api.model.AnswerEditRequest;
-import com.upgrad.quora.api.model.AnswerEditResponse;
-import com.upgrad.quora.api.model.AnswerRequest;
-import com.upgrad.quora.api.model.AnswerResponse;
-import com.upgrad.quora.api.transformers.AnswerEditRequestTransformer;
-import com.upgrad.quora.api.transformers.AnswerEditResponseTransformer;
-import com.upgrad.quora.api.transformers.AnswerRequestTransformer;
-import com.upgrad.quora.api.transformers.AnswerResponseTransformer;
+import com.upgrad.quora.api.model.*;
+import com.upgrad.quora.api.transformers.*;
 import com.upgrad.quora.service.business.AnswerService;
 import com.upgrad.quora.service.business.TokenService;
 import com.upgrad.quora.service.entity.AnswerEntity;
@@ -40,6 +34,9 @@ public class AnswerController {
     @Autowired
     private AnswerEditResponseTransformer answerEditResponseTransformer;
 
+    @Autowired
+    private AnswerDeleteResponseTransformer answerDeleteResponseTransformer;
+
     @RequestMapping(method = RequestMethod.POST,path = "/question/{questionId}/answer/create", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<AnswerResponse> createAnswer(final AnswerRequest answerRequest,
                                                        @PathVariable("questionId") final String questionId, @RequestHeader("accessToken") final String accessToken)
@@ -61,5 +58,16 @@ public class AnswerController {
         answerEntity = answerService.updateAnswer(answerEntity,bearerToken);
         AnswerEditResponse answerEditResponse = answerEditResponseTransformer.transform(answerEntity);
         return new ResponseEntity<AnswerEditResponse>(answerEditResponse,HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, path = "/answer/delete/{answerId}",
+            produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<AnswerDeleteResponse> deleteAnswer(@PathVariable("answerId") final String answerId,
+                                                             @RequestHeader("accessToken") final String accessToken) throws AuthenticationFailedException, AuthorizationFailedException, AnswerNotFoundException
+    {
+        String bearerToken = tokenService.getBearerToken(accessToken);
+        answerService.deleteAnswer(answerId,bearerToken);
+        AnswerDeleteResponse answerDeleteResponse = answerDeleteResponseTransformer.transform(answerId);
+        return new ResponseEntity<AnswerDeleteResponse>(answerDeleteResponse,HttpStatus.OK);
     }
 }
