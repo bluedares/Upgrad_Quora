@@ -27,6 +27,9 @@ public class QuestionService {
     @Autowired
     private QuestionDao questionDao;
 
+    @Autowired
+    private UserService userService;
+
     @Transactional(propagation = Propagation.REQUIRED)
     public QuestionEntity createQuestion(QuestionEntity questionEntity, String accessToken) throws AuthenticationFailedException,AuthorizationFailedException{
         UserAuthEntity userAuthEntity = userDao.getUserAuthByAccessToken(accessToken);
