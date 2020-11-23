@@ -2,14 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="619737c3-74d6-4796-83b3-8ef5f1a263c8" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/transformers/QuestionEditRequestTransformer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/transformers/QuestionEditResponseTransformer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/controller/QuestionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/controller/QuestionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/business/QuestionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/business/QuestionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/common/QuoraErrors.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/common/QuoraErrors.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/dao/QuestionDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/dao/QuestionDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quora-service/target/classes/com/upgrad/quora/service/business/QuestionService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/quora-service/target/classes/com/upgrad/quora/service/common/QuoraErrors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/controller/QuestionController.class" beforeDir="false" afterPath="$PROJECT_DIR$/quora-api/target/classes/com/upgrad/quora/api/controller/QuestionController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quora-service/target/classes/com/upgrad/quora/service/business/QuestionService.class" beforeDir="false" afterPath="$PROJECT_DIR$/quora-service/target/classes/com/upgrad/quora/service/business/QuestionService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quora-service/target/classes/com/upgrad/quora/service/common/Constants.class" beforeDir="false" afterPath="$PROJECT_DIR$/quora-service/target/classes/com/upgrad/quora/service/common/Constants.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quora-service/target/classes/com/upgrad/quora/service/common/QuoraErrors.class" beforeDir="false" afterPath="$PROJECT_DIR$/quora-service/target/classes/com/upgrad/quora/service/common/QuoraErrors.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quora-service/target/classes/com/upgrad/quora/service/dao/QuestionDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/quora-service/target/classes/com/upgrad/quora/service/dao/QuestionDao.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/quora-service/target/" />
@@ -77,23 +74,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/controller/UserController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="689">
-              <caret line="113" column="5" lean-forward="true" selection-start-line="113" selection-start-column="5" selection-end-line="113" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/controller/QuestionController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="57" column="105" lean-forward="true" selection-start-line="57" selection-start-column="105" selection-end-line="57" selection-end-column="105" />
+            <state relative-caret-position="320">
+              <caret line="63" column="61" selection-start-line="63" selection-start-column="61" selection-end-line="63" selection-end-column="61" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -101,11 +86,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/transformers/QuestionEditRequestTransformer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+            <state relative-caret-position="180">
+              <caret line="12" column="30" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -116,8 +101,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/transformers/QuestionEditResponseTransformer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="44" selection-start-line="2" selection-start-column="44" selection-end-line="2" selection-end-column="44" />
+            <state relative-caret-position="165">
+              <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/common/Constants.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="69" selection-start-line="6" selection-start-column="69" selection-end-line="6" selection-end-column="69" />
             </state>
           </provider>
         </entry>
@@ -230,7 +227,6 @@
         <option value="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/exception/UserNotFoundException.java" />
         <option value="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/entity/QuestionEntity.java" />
         <option value="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/transformers/CreateQuestionRequestTransformer.java" />
-        <option value="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/common/Constants.java" />
         <option value="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/transformers/CreateQuestionResponseTransformer.java" />
         <option value="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/exception/InvalidQuestionException.java" />
         <option value="$PROJECT_DIR$/quora-db/src/main/resources/sql/quora.sql" />
@@ -247,8 +243,10 @@
         <option value="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/dao/QuestionDao.java" />
         <option value="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/common/QuoraErrors.java" />
         <option value="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/business/QuestionService.java" />
-        <option value="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/controller/QuestionController.java" />
         <option value="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/transformers/QuestionEditRequestTransformer.java" />
+        <option value="$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/common/Constants.java" />
+        <option value="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/transformers/QuestionEditResponseTransformer.java" />
+        <option value="$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/controller/QuestionController.java" />
       </list>
     </option>
   </component>
@@ -599,10 +597,10 @@
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
-    <property name="SearchEverywhereHistoryKey" value="Question&#9;PSI&#9;JAVA://com.upgrad.quora.api.controller.QuestionController&#10;C&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/controller/UserController.java&#10;UserCon&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/controller/UserController.java&#10;Quora&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/exception/QuoraExceptionHandler.java&#10;UserA&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-service/src/main/java/com/upgrad/quora/service/entity/UserAuthEntity.java&#10;quor&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-db/target/classes/sql/quora.sql&#10;UserDao&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-service/src/main/java/com/upgrad/quora/service/dao/UserDao.java&#10;Cons&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-service/src/main/java/com/upgrad/quora/service/common/Constants.java&#10;UserServ&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-service/src/main/java/com/upgrad/quora/service/business/UserService.java&#10;Const&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-service/src/main/java/com/upgrad/quora/service/common/Constants.java&#10;User&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-service/src/main/java/com/upgrad/quora/service/entity/UserEntity.java&#10;Sign&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-service/src/main/java/com/upgrad/quora/service/exception/SignOutRestrictedException.java&#10;Signout&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-service/src/main/java/com/upgrad/quora/service/exception/SignOutRestrictedException.java&#10;Signin&#9;PSI&#9;JAVA://com.upgrad.quora.api.model.SigninResponse&#10;Authen&#9;PSI&#9;JAVA://com.upgrad.quora.service.exception.AuthenticationFailedException&#10;Signup&#9;PSI&#9;JAVA://com.upgrad.quora.api.model.SignupUserResponse&#10;UserE&#9;PSI&#9;JAVA://com.upgrad.quora.service.entity.UserEntity&#10;Error&#9;PSI&#9;JAVA://com.upgrad.quora.service.common.ErrorCode&#10;Erro&#9;PSI&#9;JAVA://com.upgrad.quora.api.model.ErrorResponse&#10;ExceptionH&#9;PSI&#9;JAVA://antlr.ExceptionHandler&#10;HibernateJpa&#9;PSI&#9;JAVA://org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaConfiguration&#10;HikariDa&#9;PSI&#9;JAVA://com.zaxxer.hikari.HikariDataSource&#10;appli&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/resources/application.yaml&#10;Appl&#9;PSI&#9;JAVA://com.upgrad.quora.api.QuoraApiApplication&#10;Service&#9;PSI&#9;JAVA://com.upgrad.quora.service.ServiceConfiguration&#10;Swa&#9;PSI&#9;JAVA://com.upgrad.quora.api.config.SwaggerConfiguration&#10;Spring&#9;PSI&#9;JAVA://org.springframework.boot.SpringApplication" />
+    <property name="SearchEverywhereHistoryKey" value="Const&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-service/src/main/java/com/upgrad/quora/service/common/Constants.java&#10;Question&#9;PSI&#9;JAVA://com.upgrad.quora.api.controller.QuestionController&#10;C&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/controller/UserController.java&#10;UserCon&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/controller/UserController.java&#10;Quora&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/exception/QuoraExceptionHandler.java&#10;UserA&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-service/src/main/java/com/upgrad/quora/service/entity/UserAuthEntity.java&#10;quor&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-db/target/classes/sql/quora.sql&#10;UserDao&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-service/src/main/java/com/upgrad/quora/service/dao/UserDao.java&#10;Cons&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-service/src/main/java/com/upgrad/quora/service/common/Constants.java&#10;UserServ&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-service/src/main/java/com/upgrad/quora/service/business/UserService.java&#10;User&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-service/src/main/java/com/upgrad/quora/service/entity/UserEntity.java&#10;Sign&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-service/src/main/java/com/upgrad/quora/service/exception/SignOutRestrictedException.java&#10;Signout&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-service/src/main/java/com/upgrad/quora/service/exception/SignOutRestrictedException.java&#10;Signin&#9;PSI&#9;JAVA://com.upgrad.quora.api.model.SigninResponse&#10;Authen&#9;PSI&#9;JAVA://com.upgrad.quora.service.exception.AuthenticationFailedException&#10;Signup&#9;PSI&#9;JAVA://com.upgrad.quora.api.model.SignupUserResponse&#10;UserE&#9;PSI&#9;JAVA://com.upgrad.quora.service.entity.UserEntity&#10;Error&#9;PSI&#9;JAVA://com.upgrad.quora.service.common.ErrorCode&#10;Erro&#9;PSI&#9;JAVA://com.upgrad.quora.api.model.ErrorResponse&#10;ExceptionH&#9;PSI&#9;JAVA://antlr.ExceptionHandler&#10;HibernateJpa&#9;PSI&#9;JAVA://org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaConfiguration&#10;HikariDa&#9;PSI&#9;JAVA://com.zaxxer.hikari.HikariDataSource&#10;appli&#9;FILE&#9;file:///Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/resources/application.yaml&#10;Appl&#9;PSI&#9;JAVA://com.upgrad.quora.api.QuoraApiApplication&#10;Service&#9;PSI&#9;JAVA://com.upgrad.quora.service.ServiceConfiguration&#10;Swa&#9;PSI&#9;JAVA://com.upgrad.quora.api.config.SwaggerConfiguration&#10;Spring&#9;PSI&#9;JAVA://org.springframework.boot.SpringApplication" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1606106329398" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1606110671536" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -656,18 +654,18 @@
       <workItem from="1605515776880" duration="1112000" />
       <workItem from="1605520951383" duration="8490000" />
       <workItem from="1605959074016" duration="28931000" />
-      <workItem from="1606096927651" duration="6989000" />
+      <workItem from="1606096927651" duration="7694000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50343000" />
+    <option name="totallyTimeSpent" value="51048000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="114" y="80" width="1540" height="907" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49908593" visible="true" weight="0.26301736" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49908593" visible="true" weight="0.26301736" />
       <window_info id="Structure" order="1" sideWeight="0.5009141" side_tool="true" weight="0.2563418" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -684,7 +682,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Spring" order="7" weight="0.32883435" />
-      <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.4986649" visible="true" weight="0.32883435" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" sideWeight="0.4986649" visible="true" weight="0.32883435" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5013351" side_tool="true" weight="0.32883435" />
       <window_info anchor="bottom" id="Java Enterprise" order="10" weight="0.32883435" />
       <window_info anchor="bottom" id="Database Changes" order="11" show_stripe_button="false" />
@@ -812,6 +810,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -843,17 +844,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/common/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="69" selection-start-line="5" selection-start-column="69" selection-end-line="5" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/transformers/CreateQuestionResponseTransformer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
           <caret line="11" column="32" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1098,10 +1095,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/controller/QuestionController.java">
+    <entry file="file://$PROJECT_DIR$/quora-service/src/main/java/com/upgrad/quora/service/common/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="57" column="105" lean-forward="true" selection-start-line="57" selection-start-column="105" selection-end-line="57" selection-end-column="105" />
+        <state relative-caret-position="90">
+          <caret line="6" column="69" selection-start-line="6" selection-start-column="69" selection-end-line="6" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/transformers/QuestionEditRequestTransformer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="30" selection-start-line="12" selection-start-column="30" selection-end-line="12" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1110,15 +1114,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/transformers/QuestionEditResponseTransformer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="44" selection-start-line="2" selection-start-column="44" selection-end-line="2" selection-end-column="44" />
+        <state relative-caret-position="165">
+          <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/transformers/QuestionEditRequestTransformer.java">
+    <entry file="file://$PROJECT_DIR$/quora-api/src/main/java/com/upgrad/quora/api/controller/QuestionController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+        <state relative-caret-position="320">
+          <caret line="63" column="61" selection-start-line="63" selection-start-column="61" selection-end-line="63" selection-end-column="61" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

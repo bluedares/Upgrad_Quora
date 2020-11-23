@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import javax.swing.plaf.ProgressBarUI;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -60,6 +61,22 @@ public class QuestionService {
     public QuestionEntity updateQuestion(QuestionEntity questionEntity, String accessToken) throws QuestionNotFoundException, AuthenticationFailedException,AuthorizationFailedException{
         UserAuthEntity userAuthEntity = userService.validateAccessToken(accessToken);
         QuestionEntity existingQuestion = questionDao.getQuestionByQuestionUuid(questionEntity.getUuid());
+        validateQuestion(userAuthEntity,existingQuestion);
+        questionEntity.setId(existingQuestion.getId());
+        questionEntity.setDate(existingQuestion.getDate());
+        questionEntity.setUser(existingQuestion.getUser());
+        return questionDao.updateQuestion(questionEntity);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void deleteQuestion(String questionId, String accessToken) throws QuestionNotFoundException,AuthorizationFailedException,AuthenticationFailedException{
+        UserAuthEntity userAuthEntity = userService.validateAccessToken(accessToken);
+        QuestionEntity existingQuestion = questionDao.getQuestionByQuestionUuid(questionId);
+        validateQuestion(userAuthEntity,existingQuestion);
+        questionDao.deleteQuestion(existingQuestion);
+    }
+
+    private void validateQuestion(UserAuthEntity userAuthEntity, QuestionEntity existingQuestion) throws QuestionNotFoundException, AuthorizationFailedException{
         if(existingQuestion == null){
             throw new QuestionNotFoundException(QuoraErrors.QUESTION_DOES_NOT_EXIST);
         }
@@ -68,9 +85,5 @@ public class QuestionService {
         if(owner.getId() != currentUser.getId()){
             throw new AuthorizationFailedException(QuoraErrors.QUESTION_NON_OWNER);
         }
-        questionEntity.setId(existingQuestion.getId());
-        questionEntity.setDate(existingQuestion.getDate());
-        questionEntity.setUser(existingQuestion.getUser());
-        return questionDao.updateQuestion(questionEntity);
     }
 }

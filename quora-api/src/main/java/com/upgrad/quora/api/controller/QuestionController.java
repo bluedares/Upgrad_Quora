@@ -39,6 +39,9 @@ public class QuestionController {
     @Autowired
     private QuestionEditResponseTransformer questionEditResponseTransformer;
 
+    @Autowired
+    private QuestionDeleteResponseTransformer questionDeleteResponseTransformer;
+
     @RequestMapping(method = RequestMethod.POST, path = "/question/create", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<QuestionResponse> createQuestion(final QuestionRequest questionRequest, @RequestHeader("accessToken") final String accessToken) throws AuthorizationFailedException, AuthenticationFailedException {
         String bearerToken = tokenService.getBearerToken(accessToken);
@@ -68,5 +71,13 @@ public class QuestionController {
         QuestionEntity updatedQuestionEntity = questionService.updateQuestion(questionEntity,bearerToken);
         QuestionEditResponse questionEditResponse = questionEditResponseTransformer.transform(updatedQuestionEntity);
         return new ResponseEntity<QuestionEditResponse>(questionEditResponse,HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, path = "/question/delete/{questionId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<QuestionDeleteResponse> deleteQuestion(@PathVariable("questionId") final String questionId, @RequestHeader("accessToken") final String accessToken) throws AuthorizationFailedException, AuthenticationFailedException, QuestionNotFoundException {
+        String bearerToken = tokenService.getBearerToken(accessToken);
+        questionService.deleteQuestion(questionId,bearerToken);
+        QuestionDeleteResponse questionDeleteResponse = questionDeleteResponseTransformer.transform(questionId);
+        return new ResponseEntity<QuestionDeleteResponse>(questionDeleteResponse,HttpStatus.OK);
     }
 }
