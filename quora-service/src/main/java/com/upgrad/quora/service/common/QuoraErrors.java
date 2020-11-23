@@ -18,7 +18,8 @@ public enum QuoraErrors {
     USER_TO_BE_DELETED_DOES_NOT_EXIST("USER_TO_BE_DELETED_DOES_NOT_EXIST","4002",HttpStatus.NOT_FOUND,"User to be deleted does not exist"),
     NO_QUESTIONS_PRESENT("NO_QUESTIONS_PRESENT","5001",HttpStatus.INTERNAL_SERVER_ERROR,"No questions present in quora"),
     NO_QUESTIONS_BY_USER("NO_QUESTIONS_BY_USER","5002",HttpStatus.NOT_FOUND,"User has not asked any questions so far."),
-    QUESTION_DOES_NOT_EXIST("QUESTION_DOES_NOT_EXIST","5003",HttpStatus.NOT_FOUND,"The given question does not exist.");
+    QUESTION_DOES_NOT_EXIST("QUESTION_DOES_NOT_EXIST","5003",HttpStatus.NOT_FOUND,"The given question does not exist."),
+    QUESTION_NON_OWNER("QUESTION_NON_OWNER","5004",HttpStatus.UNAUTHORIZED,"Only owner of the question can edit or delete the question.");
     @Getter
     private String errorCode;
     @Getter

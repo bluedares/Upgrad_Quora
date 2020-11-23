@@ -1,18 +1,11 @@
 package com.upgrad.quora.api.controller;
 
-import com.upgrad.quora.api.model.QuestionDetailsResponse;
-import com.upgrad.quora.api.model.QuestionRequest;
-import com.upgrad.quora.api.model.QuestionResponse;
-import com.upgrad.quora.api.transformers.CreateQuestionRequestTransformer;
-import com.upgrad.quora.api.transformers.CreateQuestionResponseTransformer;
-import com.upgrad.quora.api.transformers.QuestionDetailsResponseTransformer;
+import com.upgrad.quora.api.model.*;
+import com.upgrad.quora.api.transformers.*;
 import com.upgrad.quora.service.business.QuestionService;
 import com.upgrad.quora.service.business.TokenService;
 import com.upgrad.quora.service.entity.QuestionEntity;
-import com.upgrad.quora.service.exception.AuthenticationFailedException;
-import com.upgrad.quora.service.exception.AuthorizationFailedException;
-import com.upgrad.quora.service.exception.QuestionNotFoundException;
-import com.upgrad.quora.service.exception.UserNotFoundException;
+import com.upgrad.quora.service.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -40,6 +33,12 @@ public class QuestionController {
     @Autowired
     private QuestionDetailsResponseTransformer questionDetailsResponseTransformer;
 
+    @Autowired
+    private QuestionEditRequestTransformer questionEditRequestTransformer;
+
+    @Autowired
+    private QuestionEditResponseTransformer questionEditResponseTransformer;
+
     @RequestMapping(method = RequestMethod.POST, path = "/question/create", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<QuestionResponse> createQuestion(final QuestionRequest questionRequest, @RequestHeader("accessToken") final String accessToken) throws AuthorizationFailedException, AuthenticationFailedException {
         String bearerToken = tokenService.getBearerToken(accessToken);
@@ -61,5 +60,13 @@ public class QuestionController {
         List<QuestionEntity> questionEntities = questionService.getAllQuestionsByUser(userId,bearerToken);
         List<QuestionDetailsResponse> questionDetailsResponses = questionDetailsResponseTransformer.transform(questionEntities);
         return new ResponseEntity<List<QuestionDetailsResponse>>(questionDetailsResponses,HttpStatus.OK);
+    }
+    @RequestMapping(method = RequestMethod.PUT, path = "/question/edit/{questionId}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<QuestionEditResponse> updateQuestion(final QuestionEditRequest questionEditRequest, @PathVariable("questionId") final String questionId, @RequestHeader("accessToken") final String accessToken) throws AuthorizationFailedException, QuestionNotFoundException,AuthenticationFailedException {
+        String bearerToken = tokenService.getBearerToken(accessToken);
+        QuestionEntity questionEntity = questionEditRequestTransformer.transform(questionEditRequest,questionId);
+        QuestionEntity updatedQuestionEntity = questionService.updateQuestion(questionEntity,bearerToken);
+        QuestionEditResponse questionEditResponse = questionEditResponseTransformer.transform(updatedQuestionEntity);
+        return new ResponseEntity<QuestionEditResponse>(questionEditResponse,HttpStatus.OK);
     }
 }

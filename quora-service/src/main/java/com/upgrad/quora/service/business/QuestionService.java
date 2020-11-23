@@ -57,8 +57,20 @@ public class QuestionService {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public QuestionEntity updateQuestion(QuestionEntity questionEntity, String accessToken) throws AuthenticationFailedException,AuthorizationFailedException{
+    public QuestionEntity updateQuestion(QuestionEntity questionEntity, String accessToken) throws QuestionNotFoundException, AuthenticationFailedException,AuthorizationFailedException{
         UserAuthEntity userAuthEntity = userService.validateAccessToken(accessToken);
-        return null;
+        QuestionEntity existingQuestion = questionDao.getQuestionByQuestionUuid(questionEntity.getUuid());
+        if(existingQuestion == null){
+            throw new QuestionNotFoundException(QuoraErrors.QUESTION_DOES_NOT_EXIST);
+        }
+        UserEntity owner = existingQuestion.getUser();
+        UserEntity currentUser = userAuthEntity.getUser();
+        if(owner.getId() != currentUser.getId()){
+            throw new AuthorizationFailedException(QuoraErrors.QUESTION_NON_OWNER);
+        }
+        questionEntity.setId(existingQuestion.getId());
+        questionEntity.setDate(existingQuestion.getDate());
+        questionEntity.setUser(existingQuestion.getUser());
+        return questionDao.updateQuestion(questionEntity);
     }
 }
