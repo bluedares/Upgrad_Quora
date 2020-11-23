@@ -6,10 +6,8 @@ import com.upgrad.quora.service.dao.QuestionDao;
 import com.upgrad.quora.service.dao.UserDao;
 import com.upgrad.quora.service.entity.QuestionEntity;
 import com.upgrad.quora.service.entity.UserAuthEntity;
-import com.upgrad.quora.service.exception.AuthenticationFailedException;
-import com.upgrad.quora.service.exception.AuthorizationFailedException;
-import com.upgrad.quora.service.exception.InvalidQuestionException;
-import com.upgrad.quora.service.exception.QuestionNotFoundException;
+import com.upgrad.quora.service.entity.UserEntity;
+import com.upgrad.quora.service.exception.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -44,6 +42,16 @@ public class QuestionService {
         List<QuestionEntity> questionEntities = questionDao.getAllQuestions();
         if(CollectionUtils.isEmpty(questionEntities)){
             throw new QuestionNotFoundException(QuoraErrors.NO_QUESTIONS_PRESENT);
+        }
+        return questionEntities;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public List<QuestionEntity> getAllQuestionsByUser(String userUuid,String accessToken) throws QuestionNotFoundException,AuthorizationFailedException, AuthenticationFailedException, UserNotFoundException {
+        UserEntity userEntity = userService.getUser(userUuid,accessToken);
+        List<QuestionEntity> questionEntities = questionDao.getAllQuestionsByUser(userEntity.getUuid());
+        if(CollectionUtils.isEmpty(questionEntities)){
+            throw new QuestionNotFoundException(QuoraErrors.NO_QUESTIONS_BY_USER);
         }
         return questionEntities;
     }
