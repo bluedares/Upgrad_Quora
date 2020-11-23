@@ -76,7 +76,7 @@ public class QuestionService {
         questionDao.deleteQuestion(existingQuestion);
     }
 
-    private void validateQuestion(UserAuthEntity userAuthEntity, QuestionEntity existingQuestion) throws QuestionNotFoundException, AuthorizationFailedException{
+    public void validateQuestion(UserAuthEntity userAuthEntity, QuestionEntity existingQuestion) throws QuestionNotFoundException, AuthorizationFailedException{
         if(existingQuestion == null){
             throw new QuestionNotFoundException(QuoraErrors.QUESTION_DOES_NOT_EXIST);
         }
@@ -86,4 +86,5 @@ public class QuestionService {
             throw new AuthorizationFailedException(QuoraErrors.QUESTION_NON_OWNER);
         }
     }
+
 }

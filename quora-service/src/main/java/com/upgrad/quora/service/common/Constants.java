@@ -6,4 +6,5 @@ public class Constants {
     public static final String QUESTION_CREATED = "QUESTION CREATED";
     public static final String QUESTION_UPDATED = "QUESTION UPDATED";
     public static final String QUESTION_DELETED = "QUESTION DELETED";
+    public static final String ANSWER_CREATED = "ANSWER CREATED";
 }
