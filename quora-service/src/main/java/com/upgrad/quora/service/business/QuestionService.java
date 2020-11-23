@@ -55,4 +55,10 @@ public class QuestionService {
         }
         return questionEntities;
     }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public QuestionEntity updateQuestion(QuestionEntity questionEntity, String accessToken) throws AuthenticationFailedException,AuthorizationFailedException{
+        UserAuthEntity userAuthEntity = userService.validateAccessToken(accessToken);
+        return null;
+    }
 }
