@@ -1,10 +1,14 @@
+/Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/transformers/QuestionEditResponseTransformer.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/config/SwaggerConfiguration.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/transformers/SignupUserRequestTransformer.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./com/upgrad/quora/api/model/AnswerDetailsResponse.java
+/Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/controller/QuestionController.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/transformers/UserDetailsResponseTransformer.java
+/Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/transformers/QuestionDeleteResponseTransformer.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/controller/UserController.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/transformers/SignoutResponseTransformer.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./com/upgrad/quora/api/model/QuestionEditRequest.java
+/Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/transformers/QuestionDetailsResponseTransformer.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./com/upgrad/quora/api/model/AnswerDeleteResponse.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/transformers/SigninResponseTransformer.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./io/swagger/RFC3339DateFormat.java
@@ -25,8 +29,10 @@
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./io/swagger/configuration/HomeController.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./io/swagger/api/ApiException.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./com/upgrad/quora/api/model/QuestionEditResponse.java
+/Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/transformers/QuestionEditRequestTransformer.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./io/swagger/Swagger2SpringBoot.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/transformers/SignupUserResponseTransformer.java
+/Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/transformers/CreateQuestionResponseTransformer.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./com/upgrad/quora/api/model/AnswerEditResponse.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/QuoraApiApplication.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./com/upgrad/quora/api/model/QuestionDeleteResponse.java
@@ -34,4 +40,5 @@
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./com/upgrad/quora/api/model/ErrorResponse.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./io/swagger/api/ApiOriginFilter.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./com/upgrad/quora/api/model/UserDeleteResponse.java
+/Users/vikneshwar.e/Downloads/Trello_quora/quora-api/src/main/java/com/upgrad/quora/api/transformers/CreateQuestionRequestTransformer.java
 /Users/vikneshwar.e/Downloads/Trello_quora/quora-api/target/generated-sources/./com/upgrad/quora/api/model/SignupUserResponse.java
