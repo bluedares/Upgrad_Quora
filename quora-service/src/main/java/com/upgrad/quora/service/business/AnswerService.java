@@ -6,6 +6,8 @@ import com.upgrad.quora.service.dao.QuestionDao;
 import com.upgrad.quora.service.entity.AnswerEntity;
 import com.upgrad.quora.service.entity.QuestionEntity;
 import com.upgrad.quora.service.entity.UserAuthEntity;
+import com.upgrad.quora.service.entity.UserEntity;
+import com.upgrad.quora.service.exception.AnswerNotFoundException;
 import com.upgrad.quora.service.exception.AuthenticationFailedException;
 import com.upgrad.quora.service.exception.AuthorizationFailedException;
 import com.upgrad.quora.service.exception.QuestionNotFoundException;
@@ -44,5 +46,28 @@ public class AnswerService {
         answerEntity.setUser(userAuthEntity.getUser());
         answerEntity.setQuestion(existingQuestion);
         return answerDao.createAnswer(answerEntity);
+    }
+
+    private void validateAnswer(AnswerEntity existingAnswer,UserAuthEntity userAuthEntity) throws AuthorizationFailedException,AnswerNotFoundException{
+        if(existingAnswer == null){
+            throw new AnswerNotFoundException(QuoraErrors.ANSWER_DOES_NOT_EXIST);
+        }
+        UserEntity answerOwner = existingAnswer.getUser();
+        UserEntity currentUser = userAuthEntity.getUser();
+        if(currentUser.getId() != answerOwner.getId()){
+            throw new AuthorizationFailedException(QuoraErrors.ANSWER_NON_OWNER);
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    public AnswerEntity updateAnswer(AnswerEntity answerEntity, String accessToken) throws AnswerNotFoundException,AuthenticationFailedException,AuthorizationFailedException{
+        UserAuthEntity userAuthEntity = userService.validateAccessToken(accessToken);
+        AnswerEntity existingAnswer = answerDao.getAnswerByUuid(answerEntity.getUuid());
+        validateAnswer(existingAnswer,userAuthEntity);
+        answerEntity.setQuestion(existingAnswer.getQuestion());
+        answerEntity.setDate(existingAnswer.getDate());
+        answerEntity.setId(existingAnswer.getId());
+        answerEntity.setUser(existingAnswer.getUser());
+        return answerDao.updateAnswer(answerEntity);
     }
 }
