@@ -1,5 +1,6 @@
 package com.upgrad.quora.service.business;
 
+import com.upgrad.quora.service.common.QuoraErrors;
 import com.upgrad.quora.service.dao.AnswerDao;
 import com.upgrad.quora.service.dao.QuestionDao;
 import com.upgrad.quora.service.entity.AnswerEntity;
@@ -35,7 +36,9 @@ public class AnswerService {
     public AnswerEntity createAnswer(AnswerEntity answerEntity,String questionId, String accessToken) throws QuestionNotFoundException, AuthenticationFailedException, AuthorizationFailedException {
         UserAuthEntity userAuthEntity = userService.validateAccessToken(accessToken);
         QuestionEntity existingQuestion = questionDao.getQuestionByQuestionUuid(questionId);
-        questionService.validateQuestion(userAuthEntity,existingQuestion);
+        if(existingQuestion == null){
+            throw new QuestionNotFoundException(QuoraErrors.QUESTION_DOES_NOT_EXIST);
+        }
         answerEntity.setUuid(UUID.randomUUID().toString());
         answerEntity.setDate(ZonedDateTime.now());
         answerEntity.setUser(userAuthEntity.getUser());
