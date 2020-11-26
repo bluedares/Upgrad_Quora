@@ -2,15 +2,15 @@
 
 --Insert values in USERS table
 INSERT INTO users(id, uuid, firstname, lastname, username, email, password, salt,loginStatus, country, aboutme, dob, role, contactnumber)
-    	VALUES (1025,'database_uuid','database_firstname','database_lastname','database_username','database_email','database_password','database_salt', 'REGISTERED','database_country' ,'database_aboutme' ,'database_dob' , 'admin' , 'database_contactnumber' );
+    	VALUES (1025,'database_uuid','database_firstname','database_lastname','database_username','database_email','database_password','database_salt', 'REGISTERED','database_country' ,'database_aboutme' ,'database_dob' , 'ADMIN' , 'database_contactnumber' );
 INSERT INTO users(id, uuid, firstname, lastname, username, email, password, salt,loginStatus, country, aboutme, dob, role, contactnumber)
-     VALUES (1026,'database_uuid1','database_firstname1','database_lastname1','database_username1','database_email1','database_password1','database_salt1','REGISTERED', 'database_country1' ,'database_aboutme1' ,'database_dob1' , 'nonadmin' , 'database_contactnumber1' );
+     VALUES (1026,'database_uuid1','database_firstname1','database_lastname1','database_username1','database_email1','database_password1','database_salt1','REGISTERED', 'database_country1' ,'database_aboutme1' ,'database_dob1' , 'NON_ADMIN' , 'database_contactnumber1' );
 INSERT INTO users(id, uuid, firstname, lastname, username, email, password, salt, loginStatus,country, aboutme, dob, role, contactnumber)
-    VALUES (1027,'database_uuid2','database_firstname2','database_lastname2','database_username2','database_email2','database_password2','database_salt2', 'LOGGED_IN','database_country2' ,'database_aboutme2' ,'database_dob2' , 'nonadmin' , 'database_contactnumber2' );
+    VALUES (1027,'database_uuid2','database_firstname2','database_lastname2','database_username2','database_email2','database_password2','database_salt2', 'LOGGED_IN','database_country2' ,'database_aboutme2' ,'database_dob2' , 'NON_ADMIN' , 'database_contactnumber2' );
 INSERT INTO users(id, uuid, firstname, lastname, username, email, password, salt, loginStatus,country, aboutme, dob, role, contactnumber)
-    VALUES (1028,'database_uuid3','database_firstname3','database_lastname3','database_username3','database_email3','database_password3','database_salt3', 'LOGGED_IN','database_country3' ,'database_aboutme3' ,'database_dob3' , 'nonadmin' , 'database_contactnumber3' );
+    VALUES (1028,'database_uuid3','database_firstname3','database_lastname3','database_username3','database_email3','database_password3','database_salt3', 'LOGGED_IN','database_country3' ,'database_aboutme3' ,'database_dob3' , 'NON_ADMIN' , 'database_contactnumber3' );
 INSERT INTO users(id, uuid, firstname, lastname, username, email, password, salt, loginStatus,country, aboutme, dob, role, contactnumber)
-    VALUES (1029,'database_uuid4','database_firstname4','database_lastname4','database_username4','database_email4','database_password4','database_salt4','LOGGED_OUT', 'database_country4' ,'database_aboutme4' ,'database_dob4' , 'nonadmin' , 'database_contactnumber4' );
+    VALUES (1029,'database_uuid4','database_firstname4','database_lastname4','database_username4','database_email4','database_password4','database_salt4','LOGGED_OUT', 'database_country4' ,'database_aboutme4' ,'database_dob4' , 'NON_ADMIN' , 'database_contactnumber4' );
 
 
 --Insert values in USER_AUTH table
