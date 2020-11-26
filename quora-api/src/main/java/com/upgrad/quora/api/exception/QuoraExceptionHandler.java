@@ -41,4 +41,16 @@ public class QuoraExceptionHandler {
         return new ResponseEntity<ErrorResponse>
                 (new ErrorResponse().code(exception.getCode()).message(exception.getErrorMessage()),exception.getStatus());
     }
+
+    @ExceptionHandler(QuestionNotFoundException.class)
+    public ResponseEntity<ErrorResponse> questionNotFoundException(QuestionNotFoundException exception,WebRequest webRequest){
+        return new ResponseEntity<ErrorResponse>
+                (new ErrorResponse().code(exception.getCode()).message(exception.getErrorMessage()),exception.getStatus());
+    }
+
+    @ExceptionHandler(AnswerNotFoundException.class)
+    public ResponseEntity<ErrorResponse> answerNotFoundException(AnswerNotFoundException exception,WebRequest webRequest){
+        return new ResponseEntity<ErrorResponse>
+                (new ErrorResponse().code(exception.getCode()).message(exception.getErrorMessage()),exception.getStatus());
+    }
 }

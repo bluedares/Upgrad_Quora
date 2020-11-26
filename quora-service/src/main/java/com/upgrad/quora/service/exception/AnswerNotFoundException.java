@@ -1,18 +1,26 @@
 package com.upgrad.quora.service.exception;
 
+import com.upgrad.quora.service.common.QuoraErrors;
+import lombok.Data;
+import org.springframework.http.HttpStatus;
+
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
 /**
  * AnswerNotFoundException is thrown when the answer is not found in the database.
  */
+
+@Data
 public class AnswerNotFoundException extends Exception {
     private final String code;
     private final String errorMessage;
+    private final HttpStatus status;
 
-    public AnswerNotFoundException(final String code, final String errorMessage) {
-        this.code = code;
-        this.errorMessage = errorMessage;
+    public AnswerNotFoundException(QuoraErrors error){
+        this.code = error.getErrorCode();
+        this.errorMessage = error.getMesssage();
+        this.status = error.getStatus();
     }
 
     @Override
@@ -30,13 +38,6 @@ public class AnswerNotFoundException extends Exception {
         super.printStackTrace(s);
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
 
 }
 
