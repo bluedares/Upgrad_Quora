@@ -1,18 +1,25 @@
 package com.upgrad.quora.service.exception;
 
+import com.upgrad.quora.service.common.QuoraErrors;
+import lombok.Data;
+import org.springframework.http.HttpStatus;
+
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
 /**
  * InvalidQuestionException is thrown when the question is not found in the database.
  */
+@Data
 public class InvalidQuestionException extends Exception {
     private final String code;
     private final String errorMessage;
+    private HttpStatus status;
 
-    public InvalidQuestionException(final String code, final String errorMessage) {
-        this.code = code;
-        this.errorMessage = errorMessage;
+    public InvalidQuestionException(QuoraErrors error) {
+        this.code = error.getErrorCode();
+        this.errorMessage = error.getMesssage();
+        this.status = error.getStatus();
     }
 
     @Override
