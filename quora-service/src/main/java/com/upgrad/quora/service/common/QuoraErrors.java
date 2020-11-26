@@ -19,7 +19,10 @@ public enum QuoraErrors {
     NO_QUESTIONS_PRESENT("NO_QUESTIONS_PRESENT","5001",HttpStatus.INTERNAL_SERVER_ERROR,"No questions present in quora"),
     NO_QUESTIONS_BY_USER("NO_QUESTIONS_BY_USER","5002",HttpStatus.NOT_FOUND,"User has not asked any questions so far."),
     QUESTION_DOES_NOT_EXIST("QUESTION_DOES_NOT_EXIST","5003",HttpStatus.NOT_FOUND,"The given question does not exist."),
-    QUESTION_NON_OWNER("QUESTION_NON_OWNER","5004",HttpStatus.UNAUTHORIZED,"Only owner of the question can edit or delete the question.");
+    QUESTION_NON_OWNER("QUESTION_NON_OWNER","5004",HttpStatus.UNAUTHORIZED,"Only owner of the question can edit or delete the question."),
+    ANSWER_DOES_NOT_EXIST("ANSWER_DOES_NOT_EXIST","6001",HttpStatus.NOT_FOUND,"The given answer does not exist."),
+    ANSWER_NON_OWNER("ANSWER_NON_OWNER","6002",HttpStatus.UNAUTHORIZED,"Only owner of the answer can edit or delete the answer."),
+    NO_ANSWERS_TO_QUESTION("NO_ANSWERS_TO_QUESTION","6003",HttpStatus.NOT_FOUND,"The question has not been answered by any quora user so far.");
     @Getter
     private String errorCode;
     @Getter
