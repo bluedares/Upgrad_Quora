@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * This is a controller class that deals with answer related CRUD operations.
+ */
 @RestController
 @RequestMapping("/")
 public class AnswerController {

@@ -8,6 +8,9 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+/**
+ * This is a repository class that deals with Answer related CRUD operations.
+ */
 @Repository
 public class AnswerDao {
     @PersistenceContext
