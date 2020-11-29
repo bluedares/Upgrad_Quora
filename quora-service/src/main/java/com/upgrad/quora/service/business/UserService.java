@@ -68,16 +68,44 @@ public class UserService {
         return userDao.createUser(userEntity);
     }
 
+    /**
+     *
+     * @param userEntity
+     * @return
+     * This method checks whether the user name in temporary userEntity object (received as param) exist in the DB.
+     * Returns true if the username  exists else false.
+     */
     private boolean isUserNameExist(UserEntity userEntity){
         UserEntity existingUser = userDao.getUserByUserName(userEntity.getUserName());
         return existingUser == null ? false : true;
     }
 
+    /**
+     *
+     * @param userEntity
+     * @return
+     * This method checks whether email in temporary userEntity object (received as param) exist in the DB.
+     * Returns true if the email exists else false.
+     */
     private boolean isUserEmailExist(UserEntity userEntity){
         UserEntity existingUser = userDao.getUserByEmail(userEntity.getEmail());
         return existingUser == null ? false : true;
     }
 
+    /**
+     *
+     * @param userName
+     * @param password
+     * @return
+     * @throws AuthenticationFailedException
+     * This method checks if the username exist in the Database. If not exists, throw the above exception with error message indicating the user has not registered.
+     * Post validating the existence of username, we encrypt the given password using the existing salt in the DB and compare it with the encrypted password saved in the DB.
+     * If both passwords are not equal, we throw the above exception with message indicating that password is incorrect.
+     * Post validating the password, we fetch the existing user details.
+     * We also fetch the user authentication details using user uuid.
+     * If user has already signed in before, we update the access token and validation duration.
+     * Else we create new user authentication details if user is signing in for the first time.
+     */
     @Transactional(propagation = Propagation.REQUIRED)
     public UserAuthEntity authenticate(String userName, String password) throws AuthenticationFailedException{
         UserEntity userEntity = userDao.getUserByUserName(userName);
@@ -105,6 +133,14 @@ public class UserService {
         return userAuthEntity;
     }
 
+    /**
+     *
+     * @param accessToken
+     * @return
+     * @throws SignOutRestrictedException
+     * This method logs out the user. First we validate whether if the user access token is valid. We check if the user is currently logged in.
+     * If any of the above validations fail, we throw the above exception with the appropriate error message.
+     */
     @Transactional(propagation = Propagation.REQUIRED)
     public UserAuthEntity logout(String accessToken) throws SignOutRestrictedException{
         UserAuthEntity userAuthEntity = userDao.getUserAuthByAccessToken(accessToken);
@@ -121,6 +157,17 @@ public class UserService {
         return userDao.logoutUser(userAuthEntity);
     }
 
+    /**
+     *
+     * @param uuid
+     * @param accessToken
+     * @return
+     * @throws AuthenticationFailedException
+     * @throws AuthorizationFailedException
+     * @throws UserNotFoundException
+     * This method is used to fetch the user details based on the given user id. We first validate the access token. If the validation fails, one of the above exceptions are thrown.
+     * If validations are passed, user details are fetched based on user id.
+     */
     @Transactional(propagation = Propagation.REQUIRED)
     public UserEntity getUser(String uuid,String accessToken) throws AuthenticationFailedException ,AuthorizationFailedException, UserNotFoundException{
         UserAuthEntity userAuthEntity = validateAccessToken(accessToken);
@@ -131,6 +178,19 @@ public class UserService {
         return userEntity;
     }
 
+    /**
+     *
+     * @param uuid
+     * @param accessToken
+     * @return
+     * @throws AuthenticationFailedException
+     * @throws AuthorizationFailedException
+     * @throws UserNotFoundException
+     * This method is used to delete the user details based on the given user id.
+     * Access token validations are performed. If any of the validations fail, above exceptions are thrown
+     * If the current user is not an admin, then throw the exception indicating the same.
+     * Delete the user based on id only if the current user is an admin.
+     */
     @Transactional(propagation = Propagation.REQUIRED)
     public String deleteUser(String uuid,String accessToken) throws AuthenticationFailedException,AuthorizationFailedException, UserNotFoundException{
         UserAuthEntity userAuthEntity = validateAccessToken(accessToken);
@@ -144,6 +204,18 @@ public class UserService {
         userDao.deleteUser(userEntity);
         return uuid;
     }
+
+    /**
+     *
+     * @param accessToken
+     * @return
+     * @throws AuthenticationFailedException
+     * @throws AuthorizationFailedException
+     * This method validates the user access token. If the user access token is not present in the DB, then throw above exception with messsage indicating that the token is invalid.
+     * Check if the current time is past token expired at time. If so, throw exception indicating that the token is expired,
+     * Check if the user has currently signed. If not, throw exception indicating that the user has not signed in.
+     * Return the user auth details post the validations are passed.
+     */
     public UserAuthEntity validateAccessToken(String accessToken) throws AuthenticationFailedException,AuthorizationFailedException{
         UserAuthEntity userAuthEntity = userDao.getUserAuthByAccessToken(accessToken);
         if(userAuthEntity == null){
