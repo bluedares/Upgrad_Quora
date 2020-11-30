@@ -7,6 +7,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public  class SignupUserResponseTransformer {
+    /**
+     *
+     * @param userEntity
+     * @return
+     * This method returns the signup response for the created user entity object.
+     */
     public SignupUserResponse transform(UserEntity userEntity){
         LoginStatus loginStatus = LoginStatus.valueOf(userEntity.getLoginStatus());
         SignupUserResponse signupUserResponse = new SignupUserResponse().id(userEntity.getUuid()).status(loginStatus.getMessage());

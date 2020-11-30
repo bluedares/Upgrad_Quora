@@ -7,6 +7,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SigninResponseTransformer {
+    /**
+     *
+     * @param userEntity
+     * @return
+     * This method creates SigninRessponse object for the user
+     */
     public SigninResponse transform(UserEntity userEntity){
         LoginStatus loginStatus = LoginStatus.valueOf(userEntity.getLoginStatus());
         SigninResponse signinResponse = new SigninResponse().id(userEntity.getUuid()).message(loginStatus.getMessage());

@@ -6,6 +6,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserDetailsResponseTransformer {
+    /**
+     *
+     * @param userEntity
+     * @return
+     * This method returns the user details response object for the fetched user entity.
+     */
     public UserDetailsResponse transform(UserEntity userEntity){
         UserDetailsResponse userDetailsResponse = new UserDetailsResponse().firstName(userEntity.getFirstName()).userName(userEntity.getUserName())
                 .lastName(userEntity.getLastName()).contactNumber(userEntity.getContactNumber()).emailAddress(userEntity.getEmail())

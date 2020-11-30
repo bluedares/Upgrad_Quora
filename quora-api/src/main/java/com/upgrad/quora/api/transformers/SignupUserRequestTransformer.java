@@ -9,6 +9,12 @@ import java.util.UUID;
 
 @Component
 public class SignupUserRequestTransformer {
+    /**
+     *
+     * @param signupUserRequest
+     * @return
+     * This method transforms signup user request to temporary user entity object.
+     */
     public UserEntity transform(SignupUserRequest signupUserRequest){
         UserEntity userEntity = new UserEntity();
         userEntity.setUuid(UUID.randomUUID().toString());
