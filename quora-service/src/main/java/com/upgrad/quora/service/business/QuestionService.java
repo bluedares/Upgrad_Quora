@@ -30,6 +30,17 @@ public class QuestionService {
     @Autowired
     private UserService userService;
 
+    /**
+     *
+     * @param questionEntity
+     * @param accessToken
+     * @return
+     * @throws AuthenticationFailedException
+     * @throws AuthorizationFailedException
+     * User access token is validated.
+     * If validation fails, one of the above exceptions are thrown.
+     * Else we create the question and map the current user to it.
+     */
     @Transactional(propagation = Propagation.REQUIRED)
     public QuestionEntity createQuestion(QuestionEntity questionEntity, String accessToken) throws AuthenticationFailedException,AuthorizationFailedException{
         UserAuthEntity userAuthEntity = userService.validateAccessToken(accessToken);
@@ -37,6 +48,16 @@ public class QuestionService {
         return questionDao.createQuestion(questionEntity);
     }
 
+    /**
+     *
+     * @param accessToken
+     * @return
+     * @throws AuthenticationFailedException
+     * @throws AuthorizationFailedException
+     * @throws QuestionNotFoundException
+     * User Access Token is validated. If any of the validations fail, one of the above excpetions are thrown.
+     * We fetch all the questions from DB. If there are no questions present in the DB, we return the appropriate error messsage indicating the same.
+     */
     @Transactional(propagation = Propagation.REQUIRED)
     public List<QuestionEntity> getAllQuestions(String accessToken) throws AuthenticationFailedException,AuthorizationFailedException,QuestionNotFoundException{
         UserAuthEntity userAuthEntity = userService.validateAccessToken(accessToken);
@@ -47,6 +68,19 @@ public class QuestionService {
         return questionEntities;
     }
 
+    /**
+     *
+     * @param userUuid
+     * @param accessToken
+     * @return
+     * @throws QuestionNotFoundException
+     * @throws AuthorizationFailedException
+     * @throws AuthenticationFailedException
+     * @throws UserNotFoundException
+     * User Access Token is validated. If any of the validations fail, one of the above excpetions are thrown.
+     *  We fetch all the questions asked by the given user from DB. If there are no questions present in the DB, we return the appropriate error messsage indicating the same.
+     */
+
     @Transactional(propagation = Propagation.REQUIRED)
     public List<QuestionEntity> getAllQuestionsByUser(String userUuid,String accessToken) throws QuestionNotFoundException,AuthorizationFailedException, AuthenticationFailedException, UserNotFoundException {
         UserEntity userEntity = userService.getUser(userUuid,accessToken);
@@ -56,6 +90,19 @@ public class QuestionService {
         }
         return questionEntities;
     }
+
+    /**
+     *
+     * @param questionEntity
+     * @param accessToken
+     * @return
+     * @throws QuestionNotFoundException
+     * @throws AuthenticationFailedException
+     * @throws AuthorizationFailedException
+     * User Access Token and the given question are validated.
+     * If any of the validations (user sign in/token validations, question existence/ownership) fail, one of the above exceptions are thrown.
+     * Else we proceed to let the user to update the question.
+     */
 
     @Transactional(propagation = Propagation.REQUIRED)
     public QuestionEntity updateQuestion(QuestionEntity questionEntity, String accessToken) throws QuestionNotFoundException, AuthenticationFailedException,AuthorizationFailedException{
@@ -68,6 +115,17 @@ public class QuestionService {
         return questionDao.updateQuestion(questionEntity);
     }
 
+    /**
+     *
+     * @param questionId
+     * @param accessToken
+     * @throws QuestionNotFoundException
+     * @throws AuthorizationFailedException
+     * @throws AuthenticationFailedException
+     * User Access Token and the given question are validated.
+     * If any of the validations (user sign in/token validations, question existence/ownership) fail, one of the above exceptions are thrown.
+     * Else we proceed to let the user to delete the question.
+     */
     @Transactional(propagation = Propagation.REQUIRED)
     public void deleteQuestion(String questionId, String accessToken) throws QuestionNotFoundException,AuthorizationFailedException,AuthenticationFailedException{
         UserAuthEntity userAuthEntity = userService.validateAccessToken(accessToken);
@@ -76,6 +134,15 @@ public class QuestionService {
         questionDao.deleteQuestion(existingQuestion);
     }
 
+    /**
+     *
+     * @param userAuthEntity
+     * @param existingQuestion
+     * @throws QuestionNotFoundException
+     * @throws AuthorizationFailedException
+     * This method validates whether question exists. We also check whether the logged in user who is trying to modify/delete the question is the owner of the question.
+     * If any of the validations fail, we throw one of the above exceptions with appropriate error message.
+     */
     private void validateQuestion(UserAuthEntity userAuthEntity, QuestionEntity existingQuestion) throws QuestionNotFoundException, AuthorizationFailedException{
         if(existingQuestion == null){
             throw new QuestionNotFoundException(QuoraErrors.QUESTION_DOES_NOT_EXIST);
